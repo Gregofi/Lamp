@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/filip/repos/lamp/src/Lexer.cpp
+include/Lexer.h
+/home/filip/repos/lamp/src/include/Lexer.h
+cctype
+-
+cassert
+-
+

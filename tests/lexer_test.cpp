@@ -1,0 +1,76 @@
+#include "gtest/gtest.h"
+#include "include/Lexer.h"
+#include <iostream>
+
+TEST(LexerTest, NumberParsingSimple)
+{
+    std::istringstream iss("1 2 12 014 0x14 0 00 0x0 1.5 0.5 0.0 1123.123 12.");
+    Lexer lexer(iss);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 1);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 2);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 12);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 12);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 20);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 0);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 0);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 0);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::FLOAT_LITERAL);
+    EXPECT_EQ(lexer.GetDoubleVal(), 1.5);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::FLOAT_LITERAL);
+    EXPECT_EQ(lexer.GetDoubleVal(), 0.5);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::FLOAT_LITERAL);
+    EXPECT_EQ(lexer.GetDoubleVal(), 0.0);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::FLOAT_LITERAL);
+    EXPECT_EQ(lexer.GetDoubleVal(), 1123.123);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::FLOAT_LITERAL);
+    EXPECT_EQ(lexer.GetDoubleVal(), 12.0);
+}
+
+TEST(LexerTest, IdentifiersAndKeywordsTest)
+{
+    std::istringstream iss("Hello world1 _return return def def1 _ a a1a");
+    Lexer lexer(iss);
+    EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
+    EXPECT_EQ(lexer.GetStringVal(), "Hello");
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
+    EXPECT_EQ(lexer.GetStringVal(), "world1");
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
+    EXPECT_EQ(lexer.GetStringVal(), "_return");
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::RETURN);
+    EXPECT_EQ(lexer.GetNextToken(), Token::DEF);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
+    EXPECT_EQ(lexer.GetStringVal(), "def1");
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
+    EXPECT_EQ(lexer.GetStringVal(), "_");
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
+    EXPECT_EQ(lexer.GetStringVal(), "a");
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
+    EXPECT_EQ(lexer.GetStringVal(), "a1a");
+}
