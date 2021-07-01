@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <optional>
+
 #include "include/Utility.h"
 
 
@@ -55,6 +57,8 @@ protected:
     Token ParseIdentifier();
     char FetchNext();
     static bool IsCorrectDigit(char c, int base);
+    std::optional<Token> ParseBraces() const;
+    std::optional<Token> ParseOperators();
 
     Token currTok;
     char currChar{' '};

@@ -1,6 +1,7 @@
 #include "include/Lexer.h"
 #include <cctype>
 #include <cassert>
+#include <optional>
 
 
 const std::map<std::string, Token> Lexer::keywords_map = {
@@ -22,11 +23,14 @@ Token Lexer::GetNextToken() {
         return ParseNumLiteral();
     }
 
+    if(auto braceTok = ParseBraces())
+    {
+        return *braceTok;
+    }
+
     /* At the end, parse keywords and identifiers */
     return ParseIdentifier();
 }
-
-
 
 Token Lexer::ParseNumLiteral() {
     int base = 10;
@@ -119,5 +123,22 @@ Token Lexer::ParseIdentifier() {
     }
     stringVal = s;
     return Token::IDENTIFIER;
+}
+
+std::optional<Token> Lexer::ParseBraces() const {
+    switch(currChar)
+    {
+        case '(' : return Token::LBRACKET;
+        case ')' : return Token::RBRACKET;
+        case '{' : return Token::LCURLYB;
+        case '}' : return Token::RCURLYB;
+        case '[' : return Token::LSQUAREB;
+        case ']' : return Token::RSQUAREB;
+    }
+    return std::nullopt;
+}
+
+std::optional<Token> Lexer::ParseOperators() {
+    return std::nullopt;
 }
 

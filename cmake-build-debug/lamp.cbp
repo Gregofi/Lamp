@@ -139,6 +139,13 @@
 		<Unit filename="/home/filip/repos/lamp/include/Lexer.h">
 			<Option target="lamp"/>
 		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Program.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Parser.h">
+			<Option target="lexer_test"/>
+			<Option target="lamp"/>
+		</Unit>
 		<Unit filename="/home/filip/repos/lamp/include/Utility.h">
 			<Option target="lamp"/>
 		</Unit>
