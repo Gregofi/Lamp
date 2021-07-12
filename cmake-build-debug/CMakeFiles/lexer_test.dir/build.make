@@ -102,19 +102,34 @@ CMakeFiles/lexer_test.dir/src/Lexer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lexer_test.dir/src/Lexer.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/filip/repos/lamp/src/Lexer.cpp -o CMakeFiles/lexer_test.dir/src/Lexer.cpp.s
 
+CMakeFiles/lexer_test.dir/src/Parser.cpp.o: CMakeFiles/lexer_test.dir/flags.make
+CMakeFiles/lexer_test.dir/src/Parser.cpp.o: ../src/Parser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/filip/repos/lamp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lexer_test.dir/src/Parser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lexer_test.dir/src/Parser.cpp.o -c /home/filip/repos/lamp/src/Parser.cpp
+
+CMakeFiles/lexer_test.dir/src/Parser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lexer_test.dir/src/Parser.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/filip/repos/lamp/src/Parser.cpp > CMakeFiles/lexer_test.dir/src/Parser.cpp.i
+
+CMakeFiles/lexer_test.dir/src/Parser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lexer_test.dir/src/Parser.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/filip/repos/lamp/src/Parser.cpp -o CMakeFiles/lexer_test.dir/src/Parser.cpp.s
+
 # Object files for target lexer_test
 lexer_test_OBJECTS = \
 "CMakeFiles/lexer_test.dir/tests/lexer_test.cpp.o" \
-"CMakeFiles/lexer_test.dir/src/Lexer.cpp.o"
+"CMakeFiles/lexer_test.dir/src/Lexer.cpp.o" \
+"CMakeFiles/lexer_test.dir/src/Parser.cpp.o"
 
 # External object files for target lexer_test
 lexer_test_EXTERNAL_OBJECTS =
 
 lexer_test: CMakeFiles/lexer_test.dir/tests/lexer_test.cpp.o
 lexer_test: CMakeFiles/lexer_test.dir/src/Lexer.cpp.o
+lexer_test: CMakeFiles/lexer_test.dir/src/Parser.cpp.o
 lexer_test: CMakeFiles/lexer_test.dir/build.make
 lexer_test: CMakeFiles/lexer_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/filip/repos/lamp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable lexer_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/filip/repos/lamp/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable lexer_test"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lexer_test.dir/link.txt --verbose=$(VERBOSE)
 	/opt/clion/bin/cmake/linux/bin/cmake -D TEST_TARGET=lexer_test -D TEST_EXECUTABLE=/home/filip/repos/lamp/cmake-build-debug/lexer_test -D TEST_EXECUTOR= -D TEST_WORKING_DIR=/home/filip/repos/lamp/cmake-build-debug -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=lexer_test_TESTS -D CTEST_FILE=/home/filip/repos/lamp/cmake-build-debug/lexer_test[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P /opt/clion/bin/cmake/linux/share/cmake-3.19/Modules/GoogleTestAddTests.cmake
 

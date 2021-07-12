@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/filip/repos/lamp/main.cpp" "/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/lamp.dir/main.cpp.o"
   "/home/filip/repos/lamp/src/Lexer.cpp" "/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/lamp.dir/src/Lexer.cpp.o"
+  "/home/filip/repos/lamp/src/Parser.cpp" "/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/lamp.dir/src/Parser.cpp.o"
   "/home/filip/repos/lamp/tests/lexer_test.cpp" "/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/lamp.dir/tests/lexer_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

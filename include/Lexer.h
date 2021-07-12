@@ -52,6 +52,7 @@ public:
     int GetIntVal() const { return intVal; }
     double GetDoubleVal() const { return floatVal; }
     std::string GetStringVal() const { return stringVal; }
+    bool IsEOF() const { return is.eof(); }
 protected:
     Token ParseNumLiteral();
     Token ParseIdentifier();
@@ -60,7 +61,6 @@ protected:
     std::optional<Token> ParseBraces() const;
     std::optional<Token> ParseOperators();
 
-    Token currTok;
     char currChar{' '};
     int intVal{0};
     double floatVal{0.0};

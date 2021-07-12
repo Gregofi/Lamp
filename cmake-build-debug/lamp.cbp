@@ -139,7 +139,34 @@
 		<Unit filename="/home/filip/repos/lamp/include/Lexer.h">
 			<Option target="lamp"/>
 		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Class.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Expr/BinExpr.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Expr/Expr.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Expr/LiteralExpr.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Function.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Includes.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Node.h">
+			<Option target="lamp"/>
+		</Unit>
 		<Unit filename="/home/filip/repos/lamp/include/Nodes/Program.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Stmt/CompoundStmt.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/include/Nodes/Stmt/Stmt.h">
 			<Option target="lamp"/>
 		</Unit>
 		<Unit filename="/home/filip/repos/lamp/include/Parser.h">
@@ -153,6 +180,10 @@
 			<Option target="lamp"/>
 		</Unit>
 		<Unit filename="/home/filip/repos/lamp/src/Lexer.cpp">
+			<Option target="lexer_test"/>
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/filip/repos/lamp/src/Parser.cpp">
 			<Option target="lexer_test"/>
 			<Option target="lamp"/>
 		</Unit>

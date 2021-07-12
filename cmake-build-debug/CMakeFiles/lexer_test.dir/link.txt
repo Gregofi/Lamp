@@ -1,1 +1,1 @@
-/usr/bin/c++  -I/home/filip/repos/lamp -g CMakeFiles/lexer_test.dir/tests/lexer_test.cpp.o CMakeFiles/lexer_test.dir/src/Lexer.cpp.o -o lexer_test  -lgtest -lgtest_main -lpthread 
+/usr/bin/c++  -I/home/filip/repos/lamp -g CMakeFiles/lexer_test.dir/tests/lexer_test.cpp.o CMakeFiles/lexer_test.dir/src/Lexer.cpp.o CMakeFiles/lexer_test.dir/src/Parser.cpp.o -o lexer_test  -lgtest -lgtest_main -lpthread 

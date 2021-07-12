@@ -223,6 +223,36 @@ src/Lexer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Lexer.cpp.s
 .PHONY : src/Lexer.cpp.s
 
+src/Parser.o: src/Parser.cpp.o
+
+.PHONY : src/Parser.o
+
+# target to build an object file
+src/Parser.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Parser.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Parser.cpp.o
+.PHONY : src/Parser.cpp.o
+
+src/Parser.i: src/Parser.cpp.i
+
+.PHONY : src/Parser.i
+
+# target to preprocess a source file
+src/Parser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Parser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Parser.cpp.i
+.PHONY : src/Parser.cpp.i
+
+src/Parser.s: src/Parser.cpp.s
+
+.PHONY : src/Parser.s
+
+# target to generate assembly for a file
+src/Parser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Parser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Parser.cpp.s
+.PHONY : src/Parser.cpp.s
+
 tests/lexer_test.o: tests/lexer_test.cpp.o
 
 .PHONY : tests/lexer_test.o
@@ -270,6 +300,9 @@ help:
 	@echo "... src/Lexer.o"
 	@echo "... src/Lexer.i"
 	@echo "... src/Lexer.s"
+	@echo "... src/Parser.o"
+	@echo "... src/Parser.i"
+	@echo "... src/Parser.s"
 	@echo "... tests/lexer_test.o"
 	@echo "... tests/lexer_test.i"
 	@echo "... tests/lexer_test.s"
