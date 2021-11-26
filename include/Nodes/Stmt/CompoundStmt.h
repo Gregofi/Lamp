@@ -3,13 +3,14 @@
 
 #include "include/Nodes/Stmt/Stmt.h"
 #include <vector>
+#include <memory>
 
 class CompoundStmt : public Stmt
 {
 public:
-    explicit CompoundStmt(std::vector<std::unqiue_ptr<Stmt> > &&stmts) : stmts(std::move(stmts)) {}
+    explicit CompoundStmt(std::vector<std::unique_ptr<Stmt> > &&stmts) : stmts(std::move(stmts)) {}
 private:
-    std::vector<std::unqiue_ptr<Stmt> > stmts;
+    std::vector<std::unique_ptr<Stmt> > stmts;
 };
 
 #endif //LAMP_COMPOUNDSTMT_H

@@ -7,13 +7,21 @@
 #include "include/Nodes/Class.h"
 #include "include/Nodes/Function.h"
 
-
+/**
+ * Represents the complete program, is on top of the hierarchy.
+ */
 class Program
 {
 public:
-    explicit Program(std::unique_ptr<Stmt> body) : body(std::move(body)) {}
+    Program(std::map<std::string, std::unique_ptr<Function> > funcs,
+            std::map<std::string, std::unique_ptr<Class> > classes)
+                    : functions(std::move(funcs)), classes(std::move(classes))
+    {
+
+    }
 private:
-    std::map<std::string, std::unique_ptr<Function> > funcs;
+
+    std::map<std::string, std::unique_ptr<Function> > functions;
     std::map<std::string, std::unique_ptr<Class> > classes;
 };
 

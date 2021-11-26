@@ -1,5 +1,5 @@
-/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/lexer_test.dir
-/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/lamp.dir
-/home/filip/repos/lamp/cmake-build-debug/CMakeFiles/test.dir
+/home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/lexer_test.dir
+/home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/lamp.dir
+/home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/test.dir

@@ -6,3 +6,29 @@
 
 #IncludeRegexTransform: 
 
+/home/gregofi1/repos/Lamp/main.cpp
+iostream
+-
+
+/home/gregofi1/repos/Lamp/src/Lexer.cpp
+include/Lexer.h
+/home/gregofi1/repos/Lamp/src/include/Lexer.h
+cctype
+-
+cassert
+-
+optional
+-
+
+/home/gregofi1/repos/Lamp/src/Parser.cpp
+include/Parser.h
+-
+
+/home/gregofi1/repos/Lamp/tests/lexer_test.cpp
+gtest/gtest.h
+/home/gregofi1/repos/Lamp/tests/gtest/gtest.h
+include/Lexer.h
+/home/gregofi1/repos/Lamp/tests/include/Lexer.h
+iostream
+-
+

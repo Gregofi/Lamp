@@ -5,6 +5,7 @@
 
 #include <memory>
 #include "include/Utility.h"
+#include "include/Nodes/Expr/Expr.h"
 
 class BinExpr
 {

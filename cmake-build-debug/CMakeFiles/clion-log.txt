@@ -1,4 +1,4 @@
-/opt/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/filip/repos/lamp
+/home/gregofi1/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/212.5457.51/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" /home/gregofi1/repos/Lamp
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/filip/repos/lamp/cmake-build-debug
+-- Build files have been written to: /home/gregofi1/repos/Lamp/cmake-build-debug

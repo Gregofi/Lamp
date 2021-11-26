@@ -8,190 +8,200 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/filip/repos/lamp/cmake-build-debug"/>
+				<Option working_dir="/home/gregofi1/repos/Lamp/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/filip/repos/lamp/cmake-build-debug"/>
+				<Option working_dir="/home/gregofi1/repos/Lamp/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/filip/repos/lamp/cmake-build-debug"/>
+				<Option working_dir="/home/gregofi1/repos/Lamp/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="lexer_test">
-				<Option output="/home/filip/repos/lamp/cmake-build-debug/lexer_test" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/filip/repos/lamp/cmake-build-debug"/>
+				<Option output="/home/gregofi1/repos/Lamp/cmake-build-debug/lexer_test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gregofi1/repos/Lamp/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 lexer_test"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 lexer_test"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="lexer_test/fast">
-				<Option output="/home/filip/repos/lamp/cmake-build-debug/lexer_test" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/filip/repos/lamp/cmake-build-debug"/>
+				<Option output="/home/gregofi1/repos/Lamp/cmake-build-debug/lexer_test" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gregofi1/repos/Lamp/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 lexer_test/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 lexer_test/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="lamp">
-				<Option output="/home/filip/repos/lamp/cmake-build-debug/lamp" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/filip/repos/lamp/cmake-build-debug"/>
+				<Option output="/home/gregofi1/repos/Lamp/cmake-build-debug/lamp" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gregofi1/repos/Lamp/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 lamp"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 lamp"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="lamp/fast">
-				<Option output="/home/filip/repos/lamp/cmake-build-debug/lamp" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/filip/repos/lamp/cmake-build-debug"/>
+				<Option output="/home/gregofi1/repos/Lamp/cmake-build-debug/lamp" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/gregofi1/repos/Lamp/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11/x86_64-redhat-linux"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/../../../../include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-redhat-linux/11/include"/>
 					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 lamp/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 lamp/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="test">
-				<Option working_dir="/home/filip/repos/lamp/cmake-build-debug"/>
+				<Option working_dir="/home/gregofi1/repos/Lamp/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/filip/repos/lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/gregofi1/repos/Lamp/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/filip/repos/lamp/include/Lexer.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Lexer.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Class.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Class.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Expr/BinExpr.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Decls/VarDecl.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Expr/Expr.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Expr/BinExpr.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Expr/LiteralExpr.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Expr/Expr.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Function.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Expr/IfExpr.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Includes.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Expr/LiteralExpr.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Node.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Function.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Program.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Includes.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Stmt/CompoundStmt.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Node.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Nodes/Stmt/Stmt.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Program.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Parser.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Stmt/CompoundStmt.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Nodes/Stmt/Stmt.h">
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Parser.h">
 			<Option target="lexer_test"/>
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/include/Utility.h">
+		<Unit filename="/home/gregofi1/repos/Lamp/include/Utility.h">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/main.cpp">
+		<Unit filename="/home/gregofi1/repos/Lamp/main.cpp">
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/src/Lexer.cpp">
+		<Unit filename="/home/gregofi1/repos/Lamp/src/Lexer.cpp">
 			<Option target="lexer_test"/>
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/src/Parser.cpp">
+		<Unit filename="/home/gregofi1/repos/Lamp/src/Parser.cpp">
 			<Option target="lexer_test"/>
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/tests/lexer_test.cpp">
+		<Unit filename="/home/gregofi1/repos/Lamp/src/ParserError.cpp">
 			<Option target="lexer_test"/>
 			<Option target="lamp"/>
 		</Unit>
-		<Unit filename="/home/filip/repos/lamp/CMakeLists.txt">
+		<Unit filename="/home/gregofi1/repos/Lamp/src/ParserError.h">
+			<Option target="lexer_test"/>
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/gregofi1/repos/Lamp/tests/lexer_test.cpp">
+			<Option target="lexer_test"/>
+			<Option target="lamp"/>
+		</Unit>
+		<Unit filename="/home/gregofi1/repos/Lamp/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/lamp.dir/main.cpp.o"
   "CMakeFiles/lamp.dir/src/Lexer.cpp.o"
   "CMakeFiles/lamp.dir/src/Parser.cpp.o"
+  "CMakeFiles/lamp.dir/src/ParserError.cpp.o"
   "CMakeFiles/lamp.dir/tests/lexer_test.cpp.o"
   "lamp"
   "lamp.pdb"

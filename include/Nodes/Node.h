@@ -4,7 +4,7 @@
 class Node
 {
 public:
-    virtual ~Node = default;
+    virtual ~Node() = default;
 };
 
 #endif //LAMP_NODE_H

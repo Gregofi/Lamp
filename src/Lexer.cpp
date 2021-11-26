@@ -8,6 +8,8 @@ const std::map<std::string, Token> Lexer::keywords_map = {
         {"def", Token::DEF},
         {"class", Token::CLASS},
         {"return", Token::RETURN},
+        {"if", Token::IF},
+        {"else", Token::ELSE},
 };
 
 Token Lexer::GetNextToken() {

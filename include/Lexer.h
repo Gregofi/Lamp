@@ -36,6 +36,8 @@ enum class Token {
         RSQUAREB,
         LCURLYB,
         RCURLYB,
+        IF,
+        ELSE,
 };
 
 class LexerError : public MessageException

@@ -18,11 +18,11 @@ protected:
     [[ nodiscard ]]
     Class ParseClass();
     [[ nodiscard ]]
-    Stmt ParseStmt();
+    std::unique_ptr<Stmt> ParseStmt();
     [[ nodiscard ]]
     CompoundStmt ParseCompoundStmt();
     [[ nodiscard ]]
-    Expr ParseExpr();
+    std::unique_ptr<Expr> ParseExpr();
     [[ nodiscard ]]
     BinExpr ParseBinExpr();
     [[ nodiscard ]]

@@ -1,1 +1,1 @@
-/usr/bin/c++  -I/home/filip/repos/lamp -g CMakeFiles/lamp.dir/main.cpp.o CMakeFiles/lamp.dir/src/Lexer.cpp.o CMakeFiles/lamp.dir/tests/lexer_test.cpp.o CMakeFiles/lamp.dir/src/Parser.cpp.o -o lamp  -lgtest 
+/usr/bin/c++  -I/home/gregofi1/repos/Lamp -g CMakeFiles/lamp.dir/main.cpp.o CMakeFiles/lamp.dir/src/Lexer.cpp.o CMakeFiles/lamp.dir/tests/lexer_test.cpp.o CMakeFiles/lamp.dir/src/Parser.cpp.o CMakeFiles/lamp.dir/src/ParserError.cpp.o -o lamp  -lgtest 
