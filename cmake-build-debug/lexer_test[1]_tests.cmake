@@ -1,5 +1,0 @@
-add_test( LexerTest.NumberParsingSimple /home/filip/repos/lamp/cmake-build-debug/lexer_test [==[--gtest_filter=LexerTest.NumberParsingSimple]==] --gtest_also_run_disabled_tests)
-set_tests_properties( LexerTest.NumberParsingSimple PROPERTIES WORKING_DIRECTORY /home/filip/repos/lamp/cmake-build-debug SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-add_test( LexerTest.IdentifiersAndKeywordsTest /home/filip/repos/lamp/cmake-build-debug/lexer_test [==[--gtest_filter=LexerTest.IdentifiersAndKeywordsTest]==] --gtest_also_run_disabled_tests)
-set_tests_properties( LexerTest.IdentifiersAndKeywordsTest PROPERTIES WORKING_DIRECTORY /home/filip/repos/lamp/cmake-build-debug SKIP_REGULAR_EXPRESSION [==[\[  SKIPPED \]]==])
-set( lexer_test_TESTS LexerTest.NumberParsingSimple LexerTest.IdentifiersAndKeywordsTest)
