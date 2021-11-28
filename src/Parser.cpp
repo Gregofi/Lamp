@@ -76,6 +76,9 @@ Type Parser::MatchTypeToToken(Token token) {
 
 std::unique_ptr<Expr> Parser::ParseBinExpr() {
     auto LHS = ParsePrimary();
+    if(!LHS)
+        throw ParserError("Unable to parse expression.");
+
     return ParseBinExprRHS(0, std::move(LHS));
 }
 
@@ -93,10 +96,14 @@ std::unique_ptr<Expr> Parser::ParseBinExprRHS(int precedence, std::unique_ptr<Ex
         ReadNextToken(); // eat binop
 
         auto RHS = ParsePrimary();
+        if(!RHS)
+            return nullptr;
 
         int next_precedence = GetTokenPrecedence(currTok);
         if (tok_precedence < next_precedence) {
             RHS = ParseBinExprRHS(tok_precedence + 1, std::move(RHS));
+            if(!RHS)
+                return nullptr;
         }
 
         LHS = std::make_unique<BinExpr>(std::move(LHS), std::move(RHS), MatchOperatorToToken(bin_op));
@@ -132,7 +139,7 @@ const static std::map<Token, int> precedences = {
 int Parser::GetTokenPrecedence(Token token) {
     auto prec = precedences.find(token);
     if(prec == precedences.end())
-        return INT_MAX;
+        return INT_MIN;
     return prec->second;
 }
 

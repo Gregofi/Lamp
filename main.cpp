@@ -2,5 +2,9 @@
 #include "include/Parser.h"
 
 int main() {
-    Parser(std::cin).ParseProgram();
+    try{
+        Parser(std::cin).ParseBinExpr();
+    } catch(ParserError &p) {
+        std::cout << p.what() << std::endl;
+    }
 }
