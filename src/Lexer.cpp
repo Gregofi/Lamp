@@ -12,14 +12,26 @@ const std::map<std::string, Token> Lexer::keywords_map = {
         {"else", Token::ELSE},
 };
 
+const std::map<std::string, Token> Lexer::operators_map = {
+        {"+", Token::OP_PLUS},
+        {"-", Token::OP_MINUS},
+        {"/", Token::OP_DIVIDE},
+        {"*", Token::OP_ASTERISK},
+        {"==", Token::OP_EQUAL},
+};
+
 Token Lexer::GetNextToken() {
+
     /* Ignore whitespaces */
     while(isspace(currChar))
     {
         FetchNext();
     }
 
-    /* Handle numbers */
+    if(currChar == EOF)
+        return Token::END_OF_INPUT;
+
+        /* Handle numbers */
     if(isdigit(currChar))
     {
         return ParseNumLiteral();
@@ -28,6 +40,14 @@ Token Lexer::GetNextToken() {
     if(auto braceTok = ParseBraces())
     {
         return *braceTok;
+    }
+    if(currChar == ':')
+    {
+        return Token::DOUBLE_DOT;
+    }
+    if(auto op = ParseOperators())
+    {
+        return *op;
     }
 
     /* At the end, parse keywords and identifiers */
@@ -141,6 +161,25 @@ std::optional<Token> Lexer::ParseBraces() const {
 }
 
 std::optional<Token> Lexer::ParseOperators() {
-    return std::nullopt;
+    std::optional<Token> res;
+    if(currChar == '+')
+    {
+        res = Token::OP_PLUS;
+    }
+    if(currChar == '-')
+    {
+        res = Token::OP_MINUS;
+    }
+    if(currChar == '*')
+    {
+        res = Token::OP_ASTERISK;
+    }
+    if(currChar == '/')
+    {
+        res = Token::OP_DIVIDE;
+    }
+    if(res)
+        FetchNext();
+    return res;
 }
 

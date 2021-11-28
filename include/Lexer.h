@@ -38,6 +38,8 @@ enum class Token {
         RCURLYB,
         IF,
         ELSE,
+        DOUBLE_DOT,
+        END_OF_INPUT,
 };
 
 class LexerError : public MessageException
@@ -61,7 +63,6 @@ protected:
     char FetchNext();
     static bool IsCorrectDigit(char c, int base);
     std::optional<Token> ParseBraces() const;
-    std::optional<Token> ParseOperators();
 
     char currChar{' '};
     int intVal{0};
@@ -70,6 +71,9 @@ protected:
     std::istream &is;
 
     static const std::map<std::string, Token> keywords_map;
+    static const std::map<std::string, Token> operators_map;
+
+    std::optional<Token> ParseOperators();
 };
 
 #endif //LAMP_LEXER_H

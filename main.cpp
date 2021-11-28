@@ -1,6 +1,6 @@
 #include <iostream>
+#include "include/Parser.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+    Parser(std::cin).ParseProgram();
 }

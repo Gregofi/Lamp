@@ -74,3 +74,36 @@ TEST(LexerTest, IdentifiersAndKeywordsTest)
     EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
     EXPECT_EQ(lexer.GetStringVal(), "a1a");
 }
+
+TEST(LexerTest, AE)
+{
+    std::istringstream iss("1 + 2.3 * 32 / 4.5 + 5 - 64");
+    Lexer lexer(iss);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 1);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::OP_PLUS);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::FLOAT_LITERAL);
+    EXPECT_EQ(lexer.GetDoubleVal(), 2.3);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::OP_ASTERISK);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 32);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::OP_DIVIDE);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::FLOAT_LITERAL);
+    EXPECT_EQ(lexer.GetDoubleVal(), 4.5);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::OP_PLUS);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 5);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::OP_MINUS);
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetIntVal(), 64);
+}

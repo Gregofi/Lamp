@@ -152,6 +152,19 @@ lamp/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/build
 .PHONY : lamp/fast
 
+#=============================================================================
+# Target rules for targets named parser_test
+
+# Build rule for target.
+parser_test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 parser_test
+.PHONY : parser_test
+
+# fast build rule for target.
+parser_test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/build
+.PHONY : parser_test/fast
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -183,6 +196,7 @@ src/Lexer.o: src/Lexer.cpp.o
 src/Lexer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Lexer.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Lexer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/Lexer.cpp.o
 .PHONY : src/Lexer.cpp.o
 
 src/Lexer.i: src/Lexer.cpp.i
@@ -192,6 +206,7 @@ src/Lexer.i: src/Lexer.cpp.i
 src/Lexer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Lexer.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Lexer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/Lexer.cpp.i
 .PHONY : src/Lexer.cpp.i
 
 src/Lexer.s: src/Lexer.cpp.s
@@ -201,6 +216,7 @@ src/Lexer.s: src/Lexer.cpp.s
 src/Lexer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Lexer.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Lexer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/Lexer.cpp.s
 .PHONY : src/Lexer.cpp.s
 
 src/Parser.o: src/Parser.cpp.o
@@ -210,6 +226,7 @@ src/Parser.o: src/Parser.cpp.o
 src/Parser.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Parser.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Parser.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/Parser.cpp.o
 .PHONY : src/Parser.cpp.o
 
 src/Parser.i: src/Parser.cpp.i
@@ -219,6 +236,7 @@ src/Parser.i: src/Parser.cpp.i
 src/Parser.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Parser.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Parser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/Parser.cpp.i
 .PHONY : src/Parser.cpp.i
 
 src/Parser.s: src/Parser.cpp.s
@@ -228,6 +246,7 @@ src/Parser.s: src/Parser.cpp.s
 src/Parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/Parser.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/Parser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/Parser.cpp.s
 .PHONY : src/Parser.cpp.s
 
 src/ParserError.o: src/ParserError.cpp.o
@@ -237,6 +256,7 @@ src/ParserError.o: src/ParserError.cpp.o
 src/ParserError.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/ParserError.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/ParserError.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/ParserError.cpp.o
 .PHONY : src/ParserError.cpp.o
 
 src/ParserError.i: src/ParserError.cpp.i
@@ -246,6 +266,7 @@ src/ParserError.i: src/ParserError.cpp.i
 src/ParserError.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/ParserError.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/ParserError.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/ParserError.cpp.i
 .PHONY : src/ParserError.cpp.i
 
 src/ParserError.s: src/ParserError.cpp.s
@@ -255,6 +276,7 @@ src/ParserError.s: src/ParserError.cpp.s
 src/ParserError.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/src/ParserError.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/src/ParserError.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/src/ParserError.cpp.s
 .PHONY : src/ParserError.cpp.s
 
 tests/lexer_test.o: tests/lexer_test.cpp.o
@@ -263,7 +285,6 @@ tests/lexer_test.o: tests/lexer_test.cpp.o
 # target to build an object file
 tests/lexer_test.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/tests/lexer_test.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/tests/lexer_test.cpp.o
 .PHONY : tests/lexer_test.cpp.o
 
 tests/lexer_test.i: tests/lexer_test.cpp.i
@@ -272,7 +293,6 @@ tests/lexer_test.i: tests/lexer_test.cpp.i
 # target to preprocess a source file
 tests/lexer_test.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/tests/lexer_test.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/tests/lexer_test.cpp.i
 .PHONY : tests/lexer_test.cpp.i
 
 tests/lexer_test.s: tests/lexer_test.cpp.s
@@ -281,8 +301,31 @@ tests/lexer_test.s: tests/lexer_test.cpp.s
 # target to generate assembly for a file
 tests/lexer_test.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lexer_test.dir/build.make CMakeFiles/lexer_test.dir/tests/lexer_test.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lamp.dir/build.make CMakeFiles/lamp.dir/tests/lexer_test.cpp.s
 .PHONY : tests/lexer_test.cpp.s
+
+tests/parser_test.o: tests/parser_test.cpp.o
+.PHONY : tests/parser_test.o
+
+# target to build an object file
+tests/parser_test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/tests/parser_test.cpp.o
+.PHONY : tests/parser_test.cpp.o
+
+tests/parser_test.i: tests/parser_test.cpp.i
+.PHONY : tests/parser_test.i
+
+# target to preprocess a source file
+tests/parser_test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/tests/parser_test.cpp.i
+.PHONY : tests/parser_test.cpp.i
+
+tests/parser_test.s: tests/parser_test.cpp.s
+.PHONY : tests/parser_test.s
+
+# target to generate assembly for a file
+tests/parser_test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/parser_test.dir/build.make CMakeFiles/parser_test.dir/tests/parser_test.cpp.s
+.PHONY : tests/parser_test.cpp.s
 
 # Help Target
 help:
@@ -295,6 +338,7 @@ help:
 	@echo "... test"
 	@echo "... lamp"
 	@echo "... lexer_test"
+	@echo "... parser_test"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -310,6 +354,9 @@ help:
 	@echo "... tests/lexer_test.o"
 	@echo "... tests/lexer_test.i"
 	@echo "... tests/lexer_test.s"
+	@echo "... tests/parser_test.o"
+	@echo "... tests/parser_test.i"
+	@echo "... tests/parser_test.s"
 .PHONY : help
 
 

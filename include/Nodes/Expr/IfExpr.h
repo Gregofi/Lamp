@@ -21,7 +21,7 @@ public:
 private:
     std::unique_ptr<Expr> cond;
     std::unique_ptr<Stmt> if_body;
-    std::unique_ptr<Stmt> else_body
+    std::unique_ptr<Stmt> else_body;
 };
 
 #endif //LAMP_IFEXPR_H

@@ -3,3 +3,4 @@
 /home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/lexer_test.dir
 /home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/lamp.dir
 /home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/test.dir
+/home/gregofi1/repos/Lamp/cmake-build-debug/CMakeFiles/parser_test.dir
