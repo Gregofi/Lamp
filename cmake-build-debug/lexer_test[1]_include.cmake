@@ -1,5 +1,0 @@
-if(EXISTS "/home/gregofi1/repos/Lamp/cmake-build-debug/lexer_test[1]_tests.cmake")
-  include("/home/gregofi1/repos/Lamp/cmake-build-debug/lexer_test[1]_tests.cmake")
-else()
-  add_test(lexer_test_NOT_BUILT lexer_test_NOT_BUILT)
-endif()
