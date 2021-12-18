@@ -40,6 +40,8 @@ enum class Token {
         ELSE,
         DOUBLE_DOT,
         END_OF_INPUT,
+        VAL,
+        VAR,
 };
 
 class LexerError : public MessageException

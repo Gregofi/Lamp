@@ -10,6 +10,8 @@ const std::map<std::string, Token> Lexer::keywords_map = {
         {"return", Token::RETURN},
         {"if", Token::IF},
         {"else", Token::ELSE},
+        {"val", Token::VAL},
+        {"var", Token::VAR},
 };
 
 const std::map<std::string, Token> Lexer::operators_map = {
