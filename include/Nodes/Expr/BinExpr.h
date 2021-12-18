@@ -10,7 +10,8 @@
 class BinExpr : public Expr
 {
 public:
-    BinExpr(std::unique_ptr<Expr> LHS, std::unique_ptr<Expr> RHS, Operator op) : LHS(std::move(LHS)), RHS(std::move(RHS)), op(op) {}
+    BinExpr(std::unique_ptr<Expr> LHS, std::unique_ptr<Expr> RHS, Operator op) 
+                : LHS(std::move(LHS)), RHS(std::move(RHS)), op(op) {}
     const std::unique_ptr<Expr>& GetLHS() const { return LHS; }
     const std::unique_ptr<Expr>& GetRHS() const { return RHS; }
     Operator GetOp() const { return op; }

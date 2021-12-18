@@ -45,23 +45,14 @@ Function Parser::ParseFunction() {
 }
 
 std::unique_ptr<Expr> Parser::ParseExpr() {
-    if(currTok == Token::IF)
-    {
-        if(ReadNextToken() != Token::LBRACKET)
-            throw ParserError("Expected opening bracket after 'if' keyword");
-
-        auto cond = ParseExpr();
-        if(ReadNextToken() != Token::RBRACKET)
-            throw ParserError("Expected closing bracket after if condition");
-
-        auto if_body = ParseStmt();
-
-        if(currTok == Token::ELSE)
-        {
-            ReadNextToken();
-            auto else_body = ParseStmt();
-            return std::make_unique<IfExpr>(std::move(cond), std::move(if_body), std::move(else_body));
+    if (currTok == Token::IF) {
+        return ParseIfExpr();
+    } else {
+        auto binexpr = ParseBinExpr();
+        if (!binexpr) {
+                throw ParserError("Unknown expression");
         }
+        return binexpr;
     }
 }
 
@@ -77,7 +68,7 @@ Type Parser::MatchTypeToToken(Token token) {
 std::unique_ptr<Expr> Parser::ParseBinExpr() {
     auto LHS = ParsePrimary();
     if(!LHS)
-        throw ParserError("Unable to parse expression.");
+        return NULL;
 
     return ParseBinExprRHS(0, std::move(LHS));
 }
@@ -108,6 +99,30 @@ std::unique_ptr<Expr> Parser::ParseBinExprRHS(int precedence, std::unique_ptr<Ex
 
         LHS = std::make_unique<BinExpr>(std::move(LHS), std::move(RHS), MatchOperatorToToken(bin_op));
     }
+}
+
+std::unique_ptr<Expr> Parser::ParseIfExpr() 
+{
+    assert(currTok == Token::IF);
+         
+    FetchNextOrThrow(Token::LBRACKET, "Expected opening bracket after 'if' keyword");   
+    ReadNextToken(); 
+    
+    auto cond = ParseExpr();
+    
+    CheckCurrentAndGetNext(Token::RBRACKET, 
+                           "Expected closing bracket after 'if' condition");
+    
+    auto body = ParseExpr();
+
+    if(currTok == Token::ELSE)
+    {
+        ReadNextToken();
+        auto else_body = ParseStmt();
+        return std::make_unique<IfExpr>(std::move(cond), std::move(body), std::move(body));
+    }
+
+    return std::make_unique<IfExpr>(std::move(cond), std::move(body));
 }
 
 std::unique_ptr<Expr> Parser::ParsePrimary() {

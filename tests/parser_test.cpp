@@ -29,3 +29,15 @@ TEST(BinaryExprTest, SimpleAE)
         EXPECT_EQ(b, 13);
         EXPECT_EQ(c, 3);
 }
+
+TEST(IfExprTest, IfTest)
+{
+        std::istringstream iss("if(0) 1");
+        Parser parser(iss);
+        try {
+        auto if_expr = parser.ParseIfExpr();
+        } catch (const ParserError &err) {
+            std::cout << err.what() << std::endl;
+        }
+        
+}

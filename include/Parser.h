@@ -25,6 +25,7 @@ public:
     CompoundStmt ParseCompoundStmt();
     std::unique_ptr<Expr> ParseExpr();
     std::unique_ptr<Expr> ParseBinExpr();
+    std::unique_ptr<Expr> ParseIfExpr();
 protected:
     static Type MatchTypeToToken(Token token);
     static Operator MatchOperatorToToken(Token token);
@@ -56,6 +57,20 @@ protected:
     static int GetTokenPrecedence(Token token);
 
     std::unique_ptr<Expr> ParseBinExprRHS(int precedence, std::unique_ptr<Expr> LHS);
+
+    /**
+     * Checks if current token corresponds to given token, then it reads next
+     * token from input and returns it.
+     * @param token - token to be checked
+     * @param error_message - message to be passed to exception if token doesn't match
+     * @return Next token from input
+     */
+    Token CheckCurrentAndGetNext(Token token, std::string error_message)
+    {
+        if(currTok != token)
+            throw ParserError(std::move(error_message));
+        return ReadNextToken();
+    }
 
     Token ReadNextToken()
     {

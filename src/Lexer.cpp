@@ -39,14 +39,17 @@ Token Lexer::GetNextToken() {
 
     if(auto braceTok = ParseBraces())
     {
+        FetchNext();
         return *braceTok;
     }
     if(currChar == ':')
     {
+        FetchNext();
         return Token::DOUBLE_DOT;
     }
     if(auto op = ParseOperators())
     {
+        FetchNext();
         return *op;
     }
 
@@ -178,8 +181,6 @@ std::optional<Token> Lexer::ParseOperators() {
     {
         res = Token::OP_DIVIDE;
     }
-    if(res)
-        FetchNext();
     return res;
 }
 

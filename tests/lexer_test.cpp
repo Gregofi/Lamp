@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "include/Lexer.h"
 #include <iostream>
+#include <sstream>
 
 TEST(LexerTest, NumberParsingSimple)
 {
@@ -48,7 +49,7 @@ TEST(LexerTest, NumberParsingSimple)
 
 TEST(LexerTest, IdentifiersAndKeywordsTest)
 {
-    std::istringstream iss("Hello world1 _return return def def1 _ a a1a");
+    std::istringstream iss("Hello world1 _return return def def1 _ if a a1a");
     Lexer lexer(iss);
     EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
     EXPECT_EQ(lexer.GetStringVal(), "Hello");
@@ -67,6 +68,8 @@ TEST(LexerTest, IdentifiersAndKeywordsTest)
 
     EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
     EXPECT_EQ(lexer.GetStringVal(), "_");
+
+    EXPECT_EQ(lexer.GetNextToken(), Token::IF);
 
     EXPECT_EQ(lexer.GetNextToken(), Token::IDENTIFIER);
     EXPECT_EQ(lexer.GetStringVal(), "a");
@@ -106,4 +109,35 @@ TEST(LexerTest, AE)
 
     EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
     EXPECT_EQ(lexer.GetIntVal(), 64);
+}
+
+TEST(LexerTest, Brackets)
+{
+    std::istringstream iss("1 ( 1 ) ( 1 ) 1");
+    Lexer lexer(iss);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetNextToken(), Token::LBRACKET); 
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetNextToken(), Token::RBRACKET);
+    EXPECT_EQ(lexer.GetNextToken(), Token::LBRACKET);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetNextToken(), Token::RBRACKET);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+}
+
+TEST(LexerTest, If)
+{
+    std::istringstream iss("if(0) 1 + 2 else 2 + 3");
+    Lexer lexer(iss);
+    EXPECT_EQ(lexer.GetNextToken(), Token::IF);
+    EXPECT_EQ(lexer.GetNextToken(), Token::LBRACKET);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetNextToken(), Token::RBRACKET);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetNextToken(), Token::OP_PLUS);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetNextToken(), Token::ELSE);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
+    EXPECT_EQ(lexer.GetNextToken(), Token::OP_PLUS);
+    EXPECT_EQ(lexer.GetNextToken(), Token::INT_LITERAL);
 }

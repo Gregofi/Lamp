@@ -7,21 +7,25 @@
 
 #include "Expr.h"
 #include <memory>
-#include "include/Nodes/Stmt/Stmt.h"
 
 class IfExpr : public Expr
 {
 public:
-    IfExpr(std::unique_ptr<Expr> cond, std::unique_ptr<Stmt> if_body, std::unique_ptr<Stmt> else_body)
-                    : cond(std::move(cond)), if_body(std::move(if_body)), else_body(std::move(else_body))
+    IfExpr(std::unique_ptr<Expr> cond, std::unique_ptr<Expr> if_body, 
+           std::unique_ptr<Expr> else_body = NULL)
+                    : cond(std::move(cond)), if_body(std::move(if_body)), 
+                      else_body(std::move(else_body))
     {
 
     }
 
+    const std::unique_ptr<Expr>& GetCond() const { return cond; }
+    const std::unique_ptr<Expr>& GetIfBody() const { return cond; }
+    const std::unique_ptr<Expr>& GetElseBody() const { return cond; }
 private:
     std::unique_ptr<Expr> cond;
-    std::unique_ptr<Stmt> if_body;
-    std::unique_ptr<Stmt> else_body;
+    std::unique_ptr<Expr> if_body;
+    std::unique_ptr<Expr> else_body;
 };
 
 #endif //LAMP_IFEXPR_H
