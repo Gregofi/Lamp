@@ -20,8 +20,8 @@ public:
     }
 
     const std::unique_ptr<Expr>& GetCond() const { return cond; }
-    const std::unique_ptr<Expr>& GetIfBody() const { return cond; }
-    const std::unique_ptr<Expr>& GetElseBody() const { return cond; }
+    const std::unique_ptr<Expr>& GetIfBody() const { return if_body; }
+    const std::unique_ptr<Expr>& GetElseBody() const { return else_body; }
 private:
     std::unique_ptr<Expr> cond;
     std::unique_ptr<Expr> if_body;
