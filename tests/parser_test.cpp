@@ -33,14 +33,24 @@ TEST(BinaryExprTest, SimpleAE)
 
 TEST(IfExprTest, IfTest)
 {
-    std::istringstream iss("if(0) 1");
-    Parser parser(iss);
-    auto expr = parser.ParseIfExpr();
-    IfExpr &if_expr = dynamic_cast<IfExpr &>(*expr);
-    
-    auto cond = dynamic_cast<LiteralExpr &>(*if_expr.GetCond());
-    EXPECT_EQ(0, std::get<int>(cond.GetValue()));
+    {
+        std::istringstream iss("if(0) 1");
+        Parser parser(iss);
+        auto expr = parser.ParseIfExpr();
+        IfExpr &if_expr = dynamic_cast<IfExpr &>(*expr);
+        
+        auto cond = dynamic_cast<LiteralExpr &>(*if_expr.GetCond());
+        EXPECT_EQ(0, std::get<int>(cond.GetValue()));
 
-    auto body = dynamic_cast<LiteralExpr &>(*if_expr.GetIfBody());
-    EXPECT_EQ(1, std::get<int>(body.GetValue()));
+        auto body = dynamic_cast<LiteralExpr &>(*if_expr.GetIfBody());
+        EXPECT_EQ(1, std::get<int>(body.GetValue()));
+    }
+    {
+        std::istringstream iss("if(1 + 2) 0 else 1");
+        Parser parser(iss);
+        auto expr = parser.ParseIfExpr();
+        IfExpr &if_expr = dynamic_cast<IfExpr &>(*expr);
+        auto else_body = dynamic_cast<LiteralExpr &>(*if_expr.GetElseBody());
+        EXPECT_EQ(1, std::get<int>(else_body.GetValue()));
+    }
 }
