@@ -26,6 +26,7 @@ public:
     std::unique_ptr<Expr> ParseExpr();
     std::unique_ptr<Expr> ParseBinExpr();
     std::unique_ptr<Expr> ParseIfExpr();
+    std::unique_ptr<VarDecl> ParseVarDecl();
 protected:
     static Type MatchTypeToToken(Token token);
     static Operator MatchOperatorToToken(Token token);

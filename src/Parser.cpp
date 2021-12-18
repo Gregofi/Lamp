@@ -1,11 +1,13 @@
 
 
-#include <include/Parser.h>
 #include <cassert>
-#include <include/Nodes/Type.h>
-#include <include/Nodes/Expr/IdenExpr.h>
+
+#include "include/Parser.h"
+#include "include/Nodes/Type.h"
+#include "include/Nodes/Expr/IdenExpr.h"
 #include "ParserError.h"
 #include "include/Nodes/Expr/IfExpr.h"
+#include "include/Nodes/Decls/VarDecl.h"
 
 Program Parser::ParseProgram()
 {
@@ -50,7 +52,7 @@ std::unique_ptr<Expr> Parser::ParseExpr()
     } else {
         auto binexpr = ParseBinExpr();
         if (!binexpr) {
-                throw ParserError("Unknown expression");
+            throw ParserError("Unknown expression");
         }
         return binexpr;
     }
@@ -61,7 +63,7 @@ Type Parser::MatchTypeToToken(Token token)
     switch(token)
     {
         case Token::INT : return Type::INTEGER;
-        case Token::FLOAT : return Type::FLOAT;
+        case Token::DOUBLE : return Type::DOUBLE;
         default : throw ParserError("Expected type");
     }
 }
@@ -174,3 +176,24 @@ std::unique_ptr<Stmt> Parser::ParseStmt()
     return nullptr;
 }
 
+std::unique_ptr<VarDecl> Parser::ParseVarDecl()
+{
+    assert(currTok == Token::VAL || currTok == Token::VAR);
+    bool is_mutable = currTok == Token::VAR;
+
+    FetchNextOrThrow(Token::IDENTIFIER, "Expected an identifier after 'val' keyword");
+    std::string name = lexer.GetStringVal();
+
+    FetchNextOrThrow(Token::DOUBLE_DOT, "Expected an : DATA_TYPE after val name");
+    ReadNextToken();
+    auto type = MatchTypeToToken(currTok);
+
+    ReadNextToken();
+    std::unique_ptr<Expr> value;
+    if(currTok == Token::OP_ASSIGN) {
+        ReadNextToken();
+        value = ParseExpr(); 
+    }
+    
+    return std::make_unique<VarDecl>(std::move(name), type, is_mutable, std::move(value));
+}

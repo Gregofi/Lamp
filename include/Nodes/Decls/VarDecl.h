@@ -1,13 +1,26 @@
-//
-// Created by gregofi1 on 11/26/21.
-//
-
 #ifndef LAMP_VARDECL_H
 #define LAMP_VARDECL_H
 
-class VarDecl
-{
+#include <string>
+#include <memory>
+#include "include/Nodes/Type.h"
+#include "include/Nodes/Expr/Expr.h"
 
+class VarDecl : public Expr
+{
+public:
+    VarDecl(std::string name, Type type, bool is_mutable, std::unique_ptr<Expr> value = nullptr) 
+        : name(std::move(name)), type(type), 
+          is_mutable(is_mutable), value(std::move(value)) {}
+    std::string GetName() const { return name; }
+    Type GetType() const { return type; }
+    bool IsMutable() const { return is_mutable; }
+    const std::unique_ptr<Expr>& GetValue() const { return value; }
+private:
+    std::string name;
+    Type type;
+    bool is_mutable;
+    std::unique_ptr<Expr> value;
 };
 
 #endif //LAMP_VARDECL_H

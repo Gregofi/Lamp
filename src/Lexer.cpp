@@ -185,6 +185,10 @@ std::optional<Token> Lexer::ParseOperators() {
     {
         res = Token::OP_DIVIDE;
     }
+    if(currChar == '=')
+    {
+        res = Token::OP_ASSIGN;
+    }
     return res;
 }
 

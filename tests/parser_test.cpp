@@ -59,6 +59,31 @@ TEST(ReturnExpr, ReturnTest)
 {
     std::istringstream iss("return 0");
     Parser parser(iss);
-    auto expr = parser.ParseReturnExpr();
+   // auto expr = parser.ParseReturnExpr();
     
+}
+
+
+TEST(AssignExpr, BasicAssignExpr)
+{
+    std::istringstream iss("val x : Int");
+    Parser parser(iss);
+    auto expr = parser.ParseVarDecl();
+    VarDecl &decl = dynamic_cast<VarDecl &>(*expr);
+    EXPECT_EQ(decl.GetName(), "x");
+    EXPECT_EQ(decl.GetType(), Type::INTEGER);
+    EXPECT_FALSE(decl.IsMutable());
+    EXPECT_FALSE(decl.GetValue()); 
+}
+
+TEST(AssignExpr, BasicExprWithVal)
+{
+    std::istringstream iss("var _x : Double = 1.0");
+    Parser parser(iss);
+    auto expr = parser.ParseVarDecl();
+    VarDecl &decl = dynamic_cast<VarDecl &>(*expr);
+    EXPECT_EQ(decl.GetName(), "_x");
+    EXPECT_EQ(decl.GetType(), Type::DOUBLE);
+    EXPECT_TRUE(decl.IsMutable());
+    EXPECT_TRUE(decl.GetValue());
 }
