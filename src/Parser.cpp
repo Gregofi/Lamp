@@ -119,7 +119,7 @@ std::unique_ptr<Expr> Parser::ParseIfExpr()
     {
         ReadNextToken();
         auto else_body = ParseStmt();
-        return std::make_unique<IfExpr>(std::move(cond), std::move(body), std::move(body));
+        return std::make_unique<IfExpr>(std::move(cond), std::move(body), std::move(else_body));
     }
 
     return std::make_unique<IfExpr>(std::move(cond), std::move(body));
