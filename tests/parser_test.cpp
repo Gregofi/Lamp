@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "include/Lexer.h"
 #include "include/Parser.h"
+#include "include/Nodes/Expr/IfExpr.h"
 #include <iostream>
 #include <sstream>
 
@@ -32,12 +33,14 @@ TEST(BinaryExprTest, SimpleAE)
 
 TEST(IfExprTest, IfTest)
 {
-        std::istringstream iss("if(0) 1");
-        Parser parser(iss);
-        try {
-        auto if_expr = parser.ParseIfExpr();
-        } catch (const ParserError &err) {
-            std::cout << err.what() << std::endl;
-        }
-        
+    std::istringstream iss("if(0) 1");
+    Parser parser(iss);
+    auto expr = parser.ParseIfExpr();
+    IfExpr &if_expr = dynamic_cast<IfExpr &>(*expr);
+    
+    auto cond = dynamic_cast<LiteralExpr &>(*if_expr.GetCond());
+    EXPECT_EQ(0, std::get<int>(cond.GetValue()));
+
+    auto body = dynamic_cast<LiteralExpr &>(*if_expr.GetIfBody());
+    EXPECT_EQ(1, std::get<int>(body.GetValue()));
 }
