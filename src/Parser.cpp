@@ -118,7 +118,7 @@ std::unique_ptr<Expr> Parser::ParseIfExpr()
     if(currTok == Token::ELSE)
     {
         ReadNextToken();
-        auto else_body = ParseStmt();
+        auto else_body = ParseExpr();
         return std::make_unique<IfExpr>(std::move(cond), std::move(body), std::move(else_body));
     }
 
