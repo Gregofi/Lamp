@@ -7,9 +7,9 @@
 #include "ParserError.h"
 #include "include/Nodes/Expr/IfExpr.h"
 
-Program Parser::ParseProgram() {
-    while(!lexer.IsEOF())
-    {
+Program Parser::ParseProgram()
+{
+    while(!lexer.IsEOF()) {
         ReadNextToken();
         if(currTok == Token::DEF)
             ParseFunction();
@@ -18,10 +18,10 @@ Program Parser::ParseProgram() {
     }
 }
 
-Function Parser::ParseFunction() {
+Function Parser::ParseFunction()
+{
     assert(currTok == Token::DEF);
-    if(ReadNextToken() != Token::IDENTIFIER)
-    {
+    if(ReadNextToken() != Token::IDENTIFIER) {
         throw ParserError("Expected an function name after 'def' keyword.");
     }
     std::string fname = lexer.GetStringVal();
@@ -30,13 +30,12 @@ Function Parser::ParseFunction() {
 
     std::map<std::string, Type> args;
     /* Parse function params */
-    while(ReadNextToken() == Token::IDENTIFIER)
-    {
+    while(ReadNextToken() == Token::IDENTIFIER) {
         std::string arg_name = lexer.GetStringVal();
         FetchNextOrThrow(Token::DOUBLE_DOT, "Expected double dot after argument name");
         auto type = MatchTypeToToken(ReadNextToken());
     }
-    if(currTok != Token::RBRACKET)
+    if (currTok != Token::RBRACKET)
         throw ParserError("Expected closing parenthesses after argument list");
     FetchNextOrThrow(Token::DOUBLE_DOT, "Expected ': ret_type' after argument list");
     auto type = MatchTypeToToken(ReadNextToken());
@@ -44,7 +43,8 @@ Function Parser::ParseFunction() {
     return {std::move(fname), type, std::move(args), std::move(body)};
 }
 
-std::unique_ptr<Expr> Parser::ParseExpr() {
+std::unique_ptr<Expr> Parser::ParseExpr()
+{
     if (currTok == Token::IF) {
         return ParseIfExpr();
     } else {
@@ -56,7 +56,8 @@ std::unique_ptr<Expr> Parser::ParseExpr() {
     }
 }
 
-Type Parser::MatchTypeToToken(Token token) {
+Type Parser::MatchTypeToToken(Token token)
+{
     switch(token)
     {
         case Token::INT : return Type::INTEGER;
@@ -65,7 +66,8 @@ Type Parser::MatchTypeToToken(Token token) {
     }
 }
 
-std::unique_ptr<Expr> Parser::ParseBinExpr() {
+std::unique_ptr<Expr> Parser::ParseBinExpr()
+{
     auto LHS = ParsePrimary();
     if(!LHS)
         return NULL;
@@ -75,7 +77,7 @@ std::unique_ptr<Expr> Parser::ParseBinExpr() {
 
 std::unique_ptr<Expr> Parser::ParseBinExprRHS(int precedence, std::unique_ptr<Expr> LHS)
 {
-    while (true) {
+    while(true) {
         int tok_precedence = GetTokenPrecedence(currTok);
 
         /* If precedence of current op is higher than our expressions, or
@@ -125,18 +127,14 @@ std::unique_ptr<Expr> Parser::ParseIfExpr()
     return std::make_unique<IfExpr>(std::move(cond), std::move(body));
 }
 
-std::unique_ptr<Expr> Parser::ParsePrimary() {
+std::unique_ptr<Expr> Parser::ParsePrimary()
+{
     std::unique_ptr<Expr> result;
-    if(currTok == Token::IDENTIFIER)
-    {
+    if(currTok == Token::IDENTIFIER) {
         result = std::make_unique<IdenExpr>(lexer.GetStringVal());
-    }
-    else if(currTok == Token::INT_LITERAL)
-    {
+    } else if(currTok == Token::INT_LITERAL) {
         result = std::make_unique<LiteralExpr>(lexer.GetIntVal());
-    }
-    else if(currTok == Token::FLOAT_LITERAL)
-    {
+    } else if(currTok == Token::FLOAT_LITERAL) {
         result = std::make_unique<LiteralExpr>(lexer.GetDoubleVal());
     }
     ReadNextToken();
@@ -151,16 +149,17 @@ const static std::map<Token, int> precedences = {
         {Token::OP_DIVIDE, 20},
 };
 
-int Parser::GetTokenPrecedence(Token token) {
+int Parser::GetTokenPrecedence(Token token)
+{
     auto prec = precedences.find(token);
     if(prec == precedences.end())
         return INT_MIN;
     return prec->second;
 }
 
-Operator Parser::MatchOperatorToToken(Token token) {
-    switch(token)
-    {
+Operator Parser::MatchOperatorToToken(Token token)
+{
+    switch(token) {
         case Token::OP_DIVIDE : return Operator::DIVIDE;
         case Token::OP_ASTERISK : return Operator::MULTIPLY;
         case Token::OP_EQUAL : return Operator::EQUAL;
@@ -170,7 +169,8 @@ Operator Parser::MatchOperatorToToken(Token token) {
     }
 }
 
-std::unique_ptr<Stmt> Parser::ParseStmt() {
+std::unique_ptr<Stmt> Parser::ParseStmt()
+{
     return nullptr;
 }
 

@@ -54,3 +54,11 @@ TEST(IfExprTest, IfTest)
         EXPECT_EQ(1, std::get<int>(else_body.GetValue()));
     }
 }
+
+TEST(ReturnExpr, ReturnTest)
+{
+    std::istringstream iss("return 0");
+    Parser parser(iss);
+    auto expr = parser.ParseReturnExpr();
+    
+}
