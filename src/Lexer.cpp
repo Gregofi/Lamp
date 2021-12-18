@@ -12,6 +12,8 @@ const std::map<std::string, Token> Lexer::keywords_map = {
         {"else", Token::ELSE},
         {"val", Token::VAL},
         {"var", Token::VAR},
+        {"Int", Token::INT},
+        {"Double", Token::DOUBLE},
 };
 
 const std::map<std::string, Token> Lexer::operators_map = {

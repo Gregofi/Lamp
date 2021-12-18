@@ -8,7 +8,7 @@
 enum class Type
 {
     INTEGER,
-    FLOAT,
+    DOUBLE,
 };
 
 #endif //LAMP_TYPE_H

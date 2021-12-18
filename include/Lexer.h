@@ -8,6 +8,7 @@
 
 #include "include/Utility.h"
 
+#define POW2(x) (1 << (x))
 
 enum class Token {
         /* Literals */
@@ -16,7 +17,7 @@ enum class Token {
         STRING_LITERAL,
         /* Data types */
         INT,
-        FLOAT,
+        DOUBLE,
         STRING,
         /* Other keywords */
         DEF,
@@ -28,6 +29,7 @@ enum class Token {
         OP_MINUS,
         OP_ASTERISK,
         OP_DIVIDE,
+        OP_ASSIGN,
         /* Other */
         IDENTIFIER,
         LBRACKET,
