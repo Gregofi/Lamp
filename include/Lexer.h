@@ -44,6 +44,7 @@ enum class Token {
         END_OF_INPUT,
         VAL,
         VAR,
+        COMMA,
 };
 
 class LexerError : public MessageException

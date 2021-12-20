@@ -57,6 +57,12 @@ Token Lexer::GetNextToken() {
         return *op;
     }
 
+    if(currChar == ',')
+    {
+        FetchNext();
+        return Token::COMMA;
+    }
+
     /* At the end, parse keywords and identifiers */
     return ParseIdentifier();
 }
