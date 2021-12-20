@@ -2,6 +2,8 @@
 #define LAMP_PROGRAM_H
 
 #include <memory>
+#include <vector>
+#include <map>
 #include "include/Nodes/Node.h"
 #include "include/Nodes/Stmt/Stmt.h"
 #include "include/Nodes/Class.h"
@@ -13,15 +15,13 @@
 class Program
 {
 public:
-    Program(std::map<std::string, std::unique_ptr<Function> > funcs,
+    Program(std::vector<Function> functions,
             std::map<std::string, std::unique_ptr<Class> > classes)
-                    : functions(std::move(funcs)), classes(std::move(classes))
+                    : functions(std::move(functions)), classes(std::move(classes))
     {
 
     }
-private:
-
-    std::map<std::string, std::unique_ptr<Function> > functions;
+    std::vector<Function> functions;
     std::map<std::string, std::unique_ptr<Class> > classes;
 };
 
