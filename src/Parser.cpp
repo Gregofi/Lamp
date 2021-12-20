@@ -11,13 +11,18 @@
 
 Program Parser::ParseProgram()
 {
+    std::vector<Function> functions;
     while(!lexer.IsEOF()) {
-        ReadNextToken();
-        if(currTok == Token::DEF)
-            ParseFunction();
-        else if(currTok == Token::CLASS)
+        if(currTok == Token::DEF) {
+            ReadNextToken();
+            functions.emplace_back(std::move(ParseFunction()));
+        } else if(currTok == Token::CLASS) {
             throw std::runtime_error("Parsing classes is not yet implemented.");
+        } else {
+            throw ParserError("Expected either function or class definition");
+        }
     }
+    return Program(std::move(functions), {});
 }
 
 Function Parser::ParseFunction()

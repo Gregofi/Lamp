@@ -109,3 +109,11 @@ TEST(Function, FuncWithArgs)
     EXPECT_EQ(func.GetReturnType(), Type::DOUBLE);
 }
 
+TEST(Program, ProgramParse)
+{
+    std::istringstream iss("def foo() : Int = 1 + 2\ndef bar(x : Int) : Int = x * 2");
+    Parser parser(iss);
+    auto program = parser.ParseProgram();
+    EXPECT_EQ(program.functions.size(), 2);
+}
+
