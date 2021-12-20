@@ -88,7 +88,7 @@ TEST(AssignExpr, BasicExprWithVal)
     EXPECT_TRUE(decl.GetValue());
 }
 
-TEST(Function, SimpleFunction)
+TEST(Function, FuncWithoutArgs)
 {
     std::istringstream iss("def foo() : Int = 1");
     Parser parser(iss);
@@ -97,3 +97,15 @@ TEST(Function, SimpleFunction)
     EXPECT_EQ(func.GetReturnType(), Type::INTEGER);
     EXPECT_FALSE(func.GetArguments().size());
 }
+
+TEST(Function, FuncWithArgs)
+{
+    std::istringstream iss("def foo(x : Int, y : Int) : Double = x + y");
+    Parser parser(iss);
+    auto func = parser.ParseFunction();
+    EXPECT_EQ(func.GetName(), "foo");
+    EXPECT_TRUE(func.GetArguments().count("x"));
+    EXPECT_TRUE(func.GetArguments().count("y"));
+    EXPECT_EQ(func.GetReturnType(), Type::DOUBLE);
+}
+

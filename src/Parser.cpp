@@ -32,13 +32,19 @@ Function Parser::ParseFunction()
 
     std::map<std::string, Type> args;
     /* Parse function params */
-    while(ReadNextToken() == Token::IDENTIFIER) {
+    ReadNextToken();
+    while(true) {
+        if(currTok == Token::RBRACKET)
+            break;
         std::string arg_name = lexer.GetStringVal();
         FetchNextOrThrow(Token::DOUBLE_DOT, "Expected double dot after argument name");
         auto type = MatchTypeToToken(ReadNextToken());
+        args[arg_name] = type;
+        ReadNextToken();
+        if(currTok == Token::COMMA) {
+            FetchNextOrThrow(Token::IDENTIFIER, "Expected identifier after comma in argument list");    
+        }
     }
-    if (currTok != Token::RBRACKET)
-        throw ParserError("Expected closing parenthesses after argument list");
     FetchNextOrThrow(Token::DOUBLE_DOT, "Expected ': ret_type' after argument list");
     auto type = MatchTypeToToken(ReadNextToken()); 
     FetchNextOrThrow(Token::OP_ASSIGN, "Expected = before function body");
