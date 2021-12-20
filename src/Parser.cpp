@@ -40,8 +40,10 @@ Function Parser::ParseFunction()
     if (currTok != Token::RBRACKET)
         throw ParserError("Expected closing parenthesses after argument list");
     FetchNextOrThrow(Token::DOUBLE_DOT, "Expected ': ret_type' after argument list");
-    auto type = MatchTypeToToken(ReadNextToken());
-    auto body = ParseStmt();
+    auto type = MatchTypeToToken(ReadNextToken()); 
+    FetchNextOrThrow(Token::OP_ASSIGN, "Expected = before function body");
+    ReadNextToken();
+    auto body = ParseExpr();
     return {std::move(fname), type, std::move(args), std::move(body)};
 }
 

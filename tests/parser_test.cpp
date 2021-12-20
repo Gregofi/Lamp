@@ -87,3 +87,13 @@ TEST(AssignExpr, BasicExprWithVal)
     EXPECT_TRUE(decl.IsMutable());
     EXPECT_TRUE(decl.GetValue());
 }
+
+TEST(Function, SimpleFunction)
+{
+    std::istringstream iss("def foo() : Int = 1");
+    Parser parser(iss);
+    auto func = parser.ParseFunction();
+    EXPECT_EQ(func.GetName(), "foo");
+    EXPECT_EQ(func.GetReturnType(), Type::INTEGER);
+    EXPECT_FALSE(func.GetArguments().size());
+}
