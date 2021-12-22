@@ -1,7 +1,6 @@
 
 
 #include <cassert>
-
 #include "include/Parser.h"
 #include "include/Nodes/Type.h"
 #include "ParserError.h"
@@ -150,14 +149,18 @@ std::unique_ptr<Expr> Parser::ParseIfExpr()
 std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
 {
     std::map<std::string, std::unique_ptr<Expr> > arguments;
-    for(const auto &arg : functions.at(name).GetArguments()) {
-        arguments[arg.name] = ParseExpr();
-        CheckCurrentAndGetNext(Token::COMMA, "Expected more arguments in function");
+    auto it = functions.find(name);
+    if(it == functions.end())
+        throw ParserError("Calling an undefined function " + name);
+
+    const auto &args = it->second.GetArguments();
+    for(auto arg_it = args.begin(); arg_it != args.end(); arg_it = std::next(arg_it)) {
+        arguments.emplace(arg_it->name, std::move(ParseExpr()));
+        if(std::distance(arg_it, args.end()) != 1)
+            CheckCurrentAndGetNext(Token::COMMA, "Expected more arguments in function call");
     }
     
-    FetchNextOrThrow(Token::RBRACKET, "Expected closing bracket after arguments");
-
-    const auto &function = functions.at(name); 
+    CheckCurrentAndGetNext(Token::RBRACKET, "Expected closing bracket after arguments");
 
     return std::make_unique<CallExpr>(name, std::move(arguments));
 }
@@ -177,8 +180,9 @@ std::unique_ptr<Expr> Parser::ParsePrimary()
         if(ReadNextToken() == Token::LBRACKET) {
             ReadNextToken();
             return ParseFunctionCall(id);
+        } else {
+            return std::make_unique<IdenExpr>(std::move(id));
         }
-        return std::make_unique<IdenExpr>(std::move(id));
     } else if(currTok == Token::INT_LITERAL) {
         result = std::make_unique<LiteralExpr>(lexer.GetIntVal());
     } else if(currTok == Token::FLOAT_LITERAL) {

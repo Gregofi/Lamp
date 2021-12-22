@@ -110,6 +110,21 @@ TEST(Function, FuncWithArgs)
     EXPECT_EQ(func.GetReturnType(), Type::DOUBLE);
 }
 
+TEST(FUNCTION, FuncCall)
+{
+    std::istringstream iss("def foo(x : Int, y : Int) : Int = x + y\n"
+                           "def bar(x : Int) : Int = foo(x, x)\n");
+    try {
+    Parser parser(iss); 
+    auto program = parser.ParseProgram();
+    const auto& func = dynamic_cast<const CallExpr&>(program.functions.at("bar").GetBody());
+    } catch(ParserError &err) { std::cout << err.what() << std::endl; }
+
+#if 0
+    const CallExpr& call = dynamic_cast<const CallExpr&>(f.GetBody());
+#endif
+}
+
 TEST(Program, ProgramParse)
 {
     std::istringstream iss("def foo() : Int = 1 + 2\ndef bar(x : Int) : Int = x * 2");
