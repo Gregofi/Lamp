@@ -5,10 +5,12 @@
 #ifndef LAMP_PARSER_H
 #define LAMP_PARSER_H
 
-#include <include/Nodes/Type.h>
 #include <cassert>
 #include <utility>
-#include <src/ParserError.h>
+#include <memory>
+#include "include/Nodes/Type.h"
+#include "src/ParserError.h"
+#include "include/Nodes/Expr/CallExpr.h"
 #include "include/Nodes/Includes.h"
 #include "Lexer.h"
 
@@ -27,6 +29,7 @@ public:
     std::unique_ptr<Expr> ParseBinExpr();
     std::unique_ptr<Expr> ParseIfExpr();
     std::unique_ptr<VarDecl> ParseVarDecl();
+    std::unique_ptr<CallExpr> ParseFunctionCall(const std::string &name);
 protected:
     static Type MatchTypeToToken(Token token);
     static Operator MatchOperatorToToken(Token token);
@@ -38,7 +41,8 @@ protected:
     std::unique_ptr<Expr> ParsePrimary();
 
     /**
-     * Fetches next from input and checks if it is equal to 'token' arg. If not, throws parser error with error message
+     * Fetches next from input and checks if it is equal to 'token' arg.
+     * If not, throws parser error with error message.
      * equal to 'error_message'.
      * @param token - Expected token
      * @param error_message - Error message to be displayed if token at input doesn't match

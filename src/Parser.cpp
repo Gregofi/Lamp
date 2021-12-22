@@ -144,6 +144,21 @@ std::unique_ptr<Expr> Parser::ParseIfExpr()
     return std::make_unique<IfExpr>(std::move(cond), std::move(body));
 }
 
+std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
+{
+    std::map<std::string, std::unique_ptr<Expr> > arguments;
+    for(const auto &arg : functions.at(name).GetArguments()) {
+        arguments[arg.name] = ParseExpr();
+        CheckCurrentAndGetNext(Token::COMMA, "Expected more arguments in function");
+    }
+    
+    FetchNextOrThrow(Token::RBRACKET, "Expected closing bracket after arguments");
+
+    const auto &function = functions.at(name); 
+
+    return std::make_unique<CallExpr>(name, std::move(arguments));
+}
+
 std::unique_ptr<Expr> Parser::ParsePrimary()
 {
     std::unique_ptr<Expr> result;
