@@ -15,13 +15,13 @@
 class Program
 {
 public:
-    Program(std::vector<Function> functions,
+    Program(std::map<std::string, Function> functions,
             std::map<std::string, std::unique_ptr<Class> > classes)
                     : functions(std::move(functions)), classes(std::move(classes))
     {
 
     }
-    std::vector<Function> functions;
+    std::map<std::string, Function> functions;
     std::map<std::string, std::unique_ptr<Class> > classes;
 };
 
