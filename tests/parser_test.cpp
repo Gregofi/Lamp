@@ -59,8 +59,8 @@ TEST(ReturnExpr, ReturnTest)
 {
     std::istringstream iss("return 0");
     Parser parser(iss);
-   // auto expr = parser.ParseReturnExpr();
-    
+    auto expr = parser.ParseReturnExpr();
+    auto expr1 = dynamic_cast<const LiteralExpr&>(expr->GetExpr()); 
 }
 
 

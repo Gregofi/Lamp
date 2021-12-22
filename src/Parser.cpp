@@ -7,8 +7,9 @@
 #include "ParserError.h"
 #include "include/Nodes/Expr/IdenExpr.h"
 #include "include/Nodes/Expr/IfExpr.h"
-#include "include/Nodes/Decls/VarDecl.h"
 #include "include/Nodes/Expr/CallExpr.h"
+#include "include/Nodes/Expr/ReturnExpr.h"
+#include "include/Nodes/Decls/VarDecl.h"
 
 
 Program Parser::ParseProgram()
@@ -64,6 +65,8 @@ std::unique_ptr<Expr> Parser::ParseExpr()
 {
     if (currTok == Token::IF) {
         return ParseIfExpr();
+    } else if (currTok == Token::RETURN) {
+        return ParseReturnExpr(); 
     } else {
         auto binexpr = ParseBinExpr();
         if (!binexpr) {
@@ -157,6 +160,13 @@ std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
     const auto &function = functions.at(name); 
 
     return std::make_unique<CallExpr>(name, std::move(arguments));
+}
+
+std::unique_ptr<ReturnExpr> Parser::ParseReturnExpr()
+{
+    assert(currTok == Token::RETURN);
+    ReadNextToken();
+    return std::make_unique<ReturnExpr>(ParseExpr());
 }
 
 std::unique_ptr<Expr> Parser::ParsePrimary()
