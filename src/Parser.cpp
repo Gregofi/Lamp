@@ -4,18 +4,20 @@
 
 #include "include/Parser.h"
 #include "include/Nodes/Type.h"
-#include "include/Nodes/Expr/IdenExpr.h"
 #include "ParserError.h"
+#include "include/Nodes/Expr/IdenExpr.h"
 #include "include/Nodes/Expr/IfExpr.h"
 #include "include/Nodes/Decls/VarDecl.h"
+#include "include/Nodes/Expr/CallExpr.h"
+
 
 Program Parser::ParseProgram()
 {
-    std::vector<Function> functions;
     while(!lexer.IsEOF()) {
         if(currTok == Token::DEF) {
-            ReadNextToken();
-            functions.emplace_back(std::move(ParseFunction()));
+            auto func = ParseFunction();
+            std::string name = func.GetName();
+            functions.insert(std::make_pair(name, std::move(func)));
         } else if(currTok == Token::CLASS) {
             throw std::runtime_error("Parsing classes is not yet implemented.");
         } else {
@@ -35,7 +37,7 @@ Function Parser::ParseFunction()
     /* If this is present, then there is also a function body. Otherwise its forward declaration */
     FetchNextOrThrow(Token::LBRACKET, "Expected left bracket after function name");
 
-    std::map<std::string, Type> args;
+    std::vector<Arg> args;
     /* Parse function params */
     ReadNextToken();
     while(true) {
@@ -44,7 +46,7 @@ Function Parser::ParseFunction()
         std::string arg_name = lexer.GetStringVal();
         FetchNextOrThrow(Token::DOUBLE_DOT, "Expected double dot after argument name");
         auto type = MatchTypeToToken(ReadNextToken());
-        args[arg_name] = type;
+        args.emplace_back(arg_name, type);
         ReadNextToken();
         if(currTok == Token::COMMA) {
             FetchNextOrThrow(Token::IDENTIFIER, "Expected identifier after comma in argument list");    
@@ -68,7 +70,7 @@ std::unique_ptr<Expr> Parser::ParseExpr()
             throw ParserError("Unknown expression");
         }
         return binexpr;
-    }
+    } 
 }
 
 Type Parser::MatchTypeToToken(Token token)
@@ -146,7 +148,12 @@ std::unique_ptr<Expr> Parser::ParsePrimary()
 {
     std::unique_ptr<Expr> result;
     if(currTok == Token::IDENTIFIER) {
-        result = std::make_unique<IdenExpr>(lexer.GetStringVal());
+        std::string id = lexer.GetStringVal();
+        if(ReadNextToken() == Token::LBRACKET) {
+            ReadNextToken();
+            return ParseFunctionCall(id);
+        }
+        return std::make_unique<IdenExpr>(std::move(id));
     } else if(currTok == Token::INT_LITERAL) {
         result = std::make_unique<LiteralExpr>(lexer.GetIntVal());
     } else if(currTok == Token::FLOAT_LITERAL) {
@@ -210,3 +217,4 @@ std::unique_ptr<VarDecl> Parser::ParseVarDecl()
     
     return std::make_unique<VarDecl>(std::move(name), type, is_mutable, std::move(value));
 }
+

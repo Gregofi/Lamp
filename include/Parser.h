@@ -81,6 +81,7 @@ protected:
     Token currTok;
     Lexer lexer;
 
+    std::map<std::string, Function> functions;
 };
 
 #endif //LAMP_PARSER_H

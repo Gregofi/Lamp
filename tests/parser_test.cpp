@@ -104,8 +104,9 @@ TEST(Function, FuncWithArgs)
     Parser parser(iss);
     auto func = parser.ParseFunction();
     EXPECT_EQ(func.GetName(), "foo");
-    EXPECT_TRUE(func.GetArguments().count("x"));
-    EXPECT_TRUE(func.GetArguments().count("y"));
+    EXPECT_TRUE(func.GetArguments().size() == 2);
+    EXPECT_EQ(func.GetArguments()[0].name, "x");
+    EXPECT_EQ(func.GetArguments()[1].name, "y");
     EXPECT_EQ(func.GetReturnType(), Type::DOUBLE);
 }
 
@@ -116,4 +117,5 @@ TEST(Program, ProgramParse)
     auto program = parser.ParseProgram();
     EXPECT_EQ(program.functions.size(), 2);
 }
+
 
