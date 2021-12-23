@@ -16,9 +16,9 @@ public:
     const std::unique_ptr<Expr>& GetRHS() const { return RHS; }
     Operator GetOp() const { return op; }
 protected:
-    Operator op;
     std::unique_ptr<Expr> LHS;
     std::unique_ptr<Expr> RHS;
+    Operator op;
 };
 
 #endif //LAMP_BINEXPR_H

@@ -114,15 +114,10 @@ TEST(FUNCTION, FuncCall)
 {
     std::istringstream iss("def foo(x : Int, y : Int) : Int = x + y\n"
                            "def bar(x : Int) : Int = foo(x, x)\n");
-    try {
     Parser parser(iss); 
     auto program = parser.ParseProgram();
     const auto& func = dynamic_cast<const CallExpr&>(program.functions.at("bar").GetBody());
-    } catch(ParserError &err) { std::cout << err.what() << std::endl; }
-
-#if 0
-    const CallExpr& call = dynamic_cast<const CallExpr&>(f.GetBody());
-#endif
+    EXPECT_EQ(func.callee, "foo");
 }
 
 TEST(Program, ProgramParse)
