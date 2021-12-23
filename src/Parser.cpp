@@ -8,6 +8,7 @@
 #include "include/Nodes/Expr/IfExpr.h"
 #include "include/Nodes/Expr/CallExpr.h"
 #include "include/Nodes/Expr/ReturnExpr.h"
+#include "include/Nodes/Expr/CompoundExpr.h"
 #include "include/Nodes/Decls/VarDecl.h"
 
 
@@ -65,7 +66,11 @@ std::unique_ptr<Expr> Parser::ParseExpr()
     if (currTok == Token::IF) {
         return ParseIfExpr();
     } else if (currTok == Token::RETURN) {
-        return ParseReturnExpr(); 
+        return ParseReturnExpr();
+    } else if (currTok == Token::VAL || currTok == Token::VAR) {
+        return ParseVarDecl();
+    } else if (currTok == Token::LCURLYB) {
+        return ParseCompoundExpr();
     } else {
         auto binexpr = ParseBinExpr();
         if (!binexpr) {
@@ -247,3 +252,14 @@ std::unique_ptr<VarDecl> Parser::ParseVarDecl()
     return std::make_unique<VarDecl>(std::move(name), type, is_mutable, std::move(value));
 }
 
+std::unique_ptr<CompoundExpr> Parser::ParseCompoundExpr()
+{
+    assert(currTok == Token::LCURLYB);
+    ReadNextToken();
+    std::vector<std::unique_ptr<Expr> > exprs;
+    while(currTok != Token::RCURLYB) {
+        exprs.emplace_back(ParseExpr());
+    }
+    CheckCurrentAndGetNext(Token::RCURLYB, "Expected closing curly bracket at the end of compound expr");
+    return std::make_unique<CompoundExpr>(std::move(exprs));
+}

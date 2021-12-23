@@ -8,6 +8,7 @@
 #include "src/ParserError.h"
 #include "include/Nodes/Expr/CallExpr.h"
 #include "include/Nodes/Expr/ReturnExpr.h"
+#include "include/Nodes/Expr/CompoundExpr.h"
 #include "include/Nodes/Includes.h"
 #include "Lexer.h"
 
@@ -28,6 +29,7 @@ public:
     std::unique_ptr<VarDecl> ParseVarDecl();
     std::unique_ptr<CallExpr> ParseFunctionCall(const std::string &name);
     std::unique_ptr<ReturnExpr> ParseReturnExpr();
+    std::unique_ptr<CompoundExpr> ParseCompoundExpr();
 protected:
     static Type MatchTypeToToken(Token token);
     static Operator MatchOperatorToToken(Token token);
