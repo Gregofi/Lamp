@@ -3,6 +3,7 @@
 
 #include <variant>
 #include "include/Nodes/Expr/Expr.h"
+#include "include/Nodes/Visitor.h"
 
 class LiteralExpr : public Expr
 {
@@ -13,6 +14,7 @@ public:
     {
         return value;
     }
+    void Accept(Visitor &v) const { v.Visit(*this); }
 protected:
     std::variant<int, double> value;
 };

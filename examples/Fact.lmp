@@ -1,0 +1,7 @@
+
+def Fact(x : Int) : Int = if(x < 2) 1 else x * Fact(x - 1)
+
+def main() : Int = {
+        val x : Int = Fact(5)
+        return x
+}

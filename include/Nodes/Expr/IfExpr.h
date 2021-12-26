@@ -6,6 +6,7 @@
 #define LAMP_IFEXPR_H
 
 #include "Expr.h"
+#include "include/Nodes/Visitor.h"
 #include <memory>
 
 class IfExpr : public Expr
@@ -22,6 +23,7 @@ public:
     const std::unique_ptr<Expr>& GetCond() const { return cond; }
     const std::unique_ptr<Expr>& GetIfBody() const { return if_body; }
     const std::unique_ptr<Expr>& GetElseBody() const { return else_body; }
+    void Accept(Visitor &v) const override { v.Visit(*this); }
 private:
     std::unique_ptr<Expr> cond;
     std::unique_ptr<Expr> if_body;

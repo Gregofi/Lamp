@@ -1,5 +1,6 @@
 #include <exception>
 #include <string>
+#include "include/Nodes/Visitor.h"
 
 class CodegenError : public std::exception
 {
@@ -13,12 +14,14 @@ class CodegenError : public std::exception
 private:
     std::string message;
 
-}
+};
 
 class Codegen : public Visitor
 {
 public:
-    void visit(const BinExpr &expr);
-    void visit(const Function &function);
-    void visit(const LiteralExpr &expr);
+    void Visit(const BinExpr &expr) override;
+    void Visit(const LiteralExpr &expr) override;
+    
+    void Visit(const Function &function) override;
+    void Visit(const Program &program) override;
 };

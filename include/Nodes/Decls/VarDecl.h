@@ -16,6 +16,7 @@ public:
     Type GetType() const { return type; }
     bool IsMutable() const { return is_mutable; }
     const std::unique_ptr<Expr>& GetValue() const { return value; }
+    void Accept(Visitor &v) const override { v.Visit(*this); }
 private:
     std::string name;
     Type type;

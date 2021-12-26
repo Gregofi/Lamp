@@ -6,6 +6,7 @@
 #include <vector>
 #include "include/Nodes/Expr/Expr.h"
 #include "Decls/VarDecl.h"
+#include "include/Nodes/Visitor.h"
 
 struct Arg {
     std::string name;
@@ -28,6 +29,7 @@ public:
     Type GetReturnType() const { return ret_type; }
     const std::vector<Arg>& GetArguments() const { return arguments; }
     const Expr& GetBody() const { return *body; }
+    void Accept(Visitor &v) const { v.Visit(*this); }
 protected:
     std::string name;
     Type ret_type;

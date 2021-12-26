@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/parser_test.dir/tests/parser_test.cpp.o -c /home/gregofi1/repos/Lamp/tests/parser_test.cpp",
+  "file": "/home/gregofi1/repos/Lamp/tests/parser_test.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/parser_test.dir/src/Parser.cpp.o -c /home/gregofi1/repos/Lamp/src/Parser.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/Parser.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/parser_test.dir/src/Lexer.cpp.o -c /home/gregofi1/repos/Lamp/src/Lexer.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/Lexer.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/parser_test.dir/src/ParserError.cpp.o -c /home/gregofi1/repos/Lamp/src/ParserError.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/ParserError.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/lexer_test.dir/tests/lexer_test.cpp.o -c /home/gregofi1/repos/Lamp/tests/lexer_test.cpp",
+  "file": "/home/gregofi1/repos/Lamp/tests/lexer_test.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/lexer_test.dir/src/Lexer.cpp.o -c /home/gregofi1/repos/Lamp/src/Lexer.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/Lexer.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/lexer_test.dir/src/Parser.cpp.o -c /home/gregofi1/repos/Lamp/src/Parser.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/Parser.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/lexer_test.dir/src/ParserError.cpp.o -c /home/gregofi1/repos/Lamp/src/ParserError.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/ParserError.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/lamp.dir/main.cpp.o -c /home/gregofi1/repos/Lamp/main.cpp",
+  "file": "/home/gregofi1/repos/Lamp/main.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/lamp.dir/src/Lexer.cpp.o -c /home/gregofi1/repos/Lamp/src/Lexer.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/Lexer.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/lamp.dir/src/Parser.cpp.o -c /home/gregofi1/repos/Lamp/src/Parser.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/Parser.cpp"
+},
+{
+  "directory": "/home/gregofi1/repos/Lamp/build",
+  "command": "/usr/bin/c++    -g -fsanitize=address -I/home/gregofi1/repos/Lamp -std=gnu++20 -o CMakeFiles/lamp.dir/src/ParserError.cpp.o -c /home/gregofi1/repos/Lamp/src/ParserError.cpp",
+  "file": "/home/gregofi1/repos/Lamp/src/ParserError.cpp"
+}
+]

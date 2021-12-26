@@ -1,0 +1,6 @@
+
+def main() : Int = {
+        val x : Int = 1       
+        val y : Int = 2
+        return x + y
+}

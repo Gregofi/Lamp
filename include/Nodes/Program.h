@@ -23,6 +23,7 @@ public:
     }
     std::map<std::string, Function> functions;
     std::map<std::string, std::unique_ptr<Class> > classes;
+    void Accept(Visitor &v) const { v.Visit(*this); }
 };
 
 #endif //LAMP_PROGRAM_H

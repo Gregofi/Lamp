@@ -6,6 +6,7 @@
 #include <memory>
 #include "include/Utility.h"
 #include "include/Nodes/Expr/Expr.h"
+#include "include/Nodes/Visitor.h"
 
 class BinExpr : public Expr
 {
@@ -15,6 +16,7 @@ public:
     const std::unique_ptr<Expr>& GetLHS() const { return LHS; }
     const std::unique_ptr<Expr>& GetRHS() const { return RHS; }
     Operator GetOp() const { return op; }
+    void Accept(Visitor &v) const override { v.Visit(*this); }
 protected:
     std::unique_ptr<Expr> LHS;
     std::unique_ptr<Expr> RHS;

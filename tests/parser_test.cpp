@@ -92,6 +92,7 @@ TEST(CompoundExpr, BasicCompoundExpr)
 {
     std::istringstream iss("{ var x : Int = 1   x + x   return x }");
     Parser parser(iss);
+    
     auto expr = parser.ParseCompoundExpr();
     EXPECT_EQ(expr->GetExpressions().size(), 3);
 }
