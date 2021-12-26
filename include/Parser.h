@@ -12,6 +12,8 @@
 #include "include/Nodes/Includes.h"
 #include "Lexer.h"
 
+#define ENTRY_FUNCTION_NAME "main"
+
 class Parser
 {
 public:

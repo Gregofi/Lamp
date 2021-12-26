@@ -25,6 +25,9 @@ Program Parser::ParseProgram()
             throw ParserError("Expected either function or class definition");
         }
     }
+    if(!functions.count(ENTRY_FUNCTION_NAME)) {
+        throw ParserError("Function " ENTRY_FUNCTION_NAME " not found.");
+    }
     return Program(std::move(functions), {});
 }
 
