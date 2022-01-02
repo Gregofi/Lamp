@@ -11,6 +11,10 @@
 #include "include/Nodes/Expr/IdenExpr.h"
 #include "include/Nodes/Decls/VarDecl.h"
 
+/**
+ * Is used for printing AST in human readable format.
+ *
+ */
 class ASTPrinter : public Visitor
 {
 public:
