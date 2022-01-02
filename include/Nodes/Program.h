@@ -15,6 +15,7 @@
 class Program
 {
 public:
+    Program() = default;
     Program(std::map<std::string, Function> functions,
             std::map<std::string, std::unique_ptr<Class> > classes)
                     : functions(std::move(functions)), classes(std::move(classes))
