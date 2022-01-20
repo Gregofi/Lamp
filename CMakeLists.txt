@@ -30,11 +30,20 @@ add_executable(
         src/Lexer.cpp
         include/Parser.h src/Parser.cpp src/ParserError.cpp src/ParserError.h)
 
+
+# Get all LLVM libs
+execute_process(COMMAND llvm-config --libs all
+OUTPUT_VARIABLE llvm_libs)
+
+# The command also outputs whitespace, strip it here
+string(STRIP ${llvm_libs} llvm_libs)
+
 target_link_libraries(
         lexer_test
         gtest
         gtest_main
         pthread
+        ${llvm_libs}
 )
 
 target_link_libraries(
@@ -42,6 +51,12 @@ target_link_libraries(
         gtest
         gtest_main
         pthread
+        ${llvm_libs}
+)
+
+target_link_libraries(
+        lamp
+        ${llvm_libs}
 )
 
 include(GoogleTest)
