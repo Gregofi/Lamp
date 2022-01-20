@@ -6,7 +6,7 @@
 #include <memory>
 #include "include/Utility.h"
 #include "include/Nodes/Expr/Expr.h"
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 
 class BinExpr : public Expr
 {

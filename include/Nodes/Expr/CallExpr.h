@@ -3,7 +3,7 @@
 
 #include "include/Nodes/Expr/Expr.h"
 #include "include/Nodes/Decls/VarDecl.h"
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 #include <string>
 #include <map>
 

@@ -2,5 +2,4 @@
 
 void Codegen::Visit(const Function &function)
 {
-
 }

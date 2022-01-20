@@ -2,7 +2,7 @@
 #define LAMP_IDENEXPR_H
 
 #include "Expr.h"
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 
 class IdenExpr : public Expr
 {

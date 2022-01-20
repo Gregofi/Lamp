@@ -1,6 +1,7 @@
 #include <exception>
 #include <string>
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
+
 
 class CodegenError : public std::exception
 {
@@ -24,4 +25,6 @@ public:
     
     void Visit(const Function &function) override;
     void Visit(const Program &program) override;
+
+private:
 };

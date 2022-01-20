@@ -2,7 +2,7 @@
 #define LAMP_EXPR_H
 
 #include "include/Nodes/Stmt/Stmt.h"
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 
 class Expr : public Stmt {
 public:

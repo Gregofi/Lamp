@@ -6,7 +6,7 @@
 #include <vector>
 #include "include/Nodes/Expr/Expr.h"
 #include "Decls/VarDecl.h"
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 
 struct Arg {
     std::string name;

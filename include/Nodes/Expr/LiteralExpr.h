@@ -3,7 +3,7 @@
 
 #include <variant>
 #include "include/Nodes/Expr/Expr.h"
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 
 class LiteralExpr : public Expr
 {

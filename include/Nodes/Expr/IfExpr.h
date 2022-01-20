@@ -6,7 +6,7 @@
 #define LAMP_IFEXPR_H
 
 #include "Expr.h"
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 #include <memory>
 
 class IfExpr : public Expr

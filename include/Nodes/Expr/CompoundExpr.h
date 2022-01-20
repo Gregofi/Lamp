@@ -2,7 +2,7 @@
 #define COUMPOUNDEXPR_H
 
 #include "include/Nodes/Expr/Expr.h"
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 #include <vector>
 
 class CompoundExpr : public Expr

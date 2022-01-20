@@ -1,7 +1,7 @@
 #ifndef ASTPRINTER_H
 #define ASTPRINTER_H
 
-#include "include/Nodes/Visitor.h"
+#include "include/Visitor.h"
 #include "include/Nodes/Expr/BinExpr.h"
 #include "include/Nodes/Expr/LiteralExpr.h"
 #include "include/Nodes/Expr/ReturnExpr.h"
