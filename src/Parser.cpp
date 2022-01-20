@@ -16,9 +16,14 @@ Program Parser::ParseProgram()
 {
     while(!lexer.IsEOF()) {
         if(currTok == Token::DEF) {
-            auto func = ParseFunction();
+            auto func = ParseFunctionHead();
             std::string name = func.GetName();
-            functions.insert(std::make_pair(name, std::move(func)));
+            auto func_it = functions.insert(std::make_pair(name, std::move(func))).first;
+            if(currTok == Token::OP_ASSIGN) {
+                ReadNextToken();
+                auto body = ParseExpr();
+                func_it->second.SetBody(std::move(body));
+            }
         } else if(currTok == Token::CLASS) {
             throw std::runtime_error("Parsing classes is not yet implemented.");
         } else {
@@ -31,14 +36,12 @@ Program Parser::ParseProgram()
     return Program(std::move(functions), {});
 }
 
-Function Parser::ParseFunction()
+Function Parser::ParseFunctionHead()
 {
-    assert(currTok == Token::DEF);
     if(ReadNextToken() != Token::IDENTIFIER) {
         throw ParserError("Expected an function name after 'def' keyword.");
     }
     std::string fname = lexer.GetStringVal();
-    /* If this is present, then there is also a function body. Otherwise its forward declaration */
     FetchNextOrThrow(Token::LBRACKET, "Expected left bracket after function name");
 
     std::vector<Arg> args;
@@ -52,16 +55,13 @@ Function Parser::ParseFunction()
         auto type = MatchTypeToToken(ReadNextToken());
         args.emplace_back(arg_name, type);
         ReadNextToken();
-        if(currTok == Token::COMMA) {
-            FetchNextOrThrow(Token::IDENTIFIER, "Expected identifier after comma in argument list");    
-        }
+        if(currTok == Token::COMMA)
+            FetchNextOrThrow(Token::IDENTIFIER, "Expected identifier after comma in argument list");
     }
     FetchNextOrThrow(Token::DOUBLE_DOT, "Expected ': ret_type' after argument list");
     auto type = MatchTypeToToken(ReadNextToken()); 
-    FetchNextOrThrow(Token::OP_ASSIGN, "Expected = before function body");
-    ReadNextToken();
-    auto body = ParseExpr();
-    return {std::move(fname), type, std::move(args), std::move(body)};
+    ReadNextToken(); 
+    return {std::move(fname), type, std::move(args)};
 }
 
 std::unique_ptr<Expr> Parser::ParseExpr()

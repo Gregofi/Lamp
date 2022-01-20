@@ -19,7 +19,7 @@ struct Arg {
 class Function
 {
 public:
-    Function(std::string name, Type ret_type, std::vector<Arg> &&arguments, std::unique_ptr<Expr> &&body)
+    Function(std::string name, Type ret_type, std::vector<Arg> &&arguments, std::unique_ptr<Expr> &&body = nullptr)
         : name(std::move(name)), ret_type(ret_type), arguments(std::move(arguments)), body(std::move(body))
     {
 
@@ -28,8 +28,9 @@ public:
     std::string GetName() const { return name; }
     Type GetReturnType() const { return ret_type; }
     const std::vector<Arg>& GetArguments() const { return arguments; }
-    const Expr& GetBody() const { return *body; }
+    const std::unique_ptr<Expr>& GetBody() const { return body; }
     void Accept(Visitor &v) const { v.Visit(*this); }
+    void SetBody(std::unique_ptr<Expr> &&other) { body = std::move(other); };
 protected:
     std::string name;
     Type ret_type;

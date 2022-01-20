@@ -101,7 +101,7 @@ TEST(Function, FuncWithoutArgs)
 {
     std::istringstream iss("def foo() : Int = 1");
     Parser parser(iss);
-    auto func = parser.ParseFunction();
+    auto func = parser.ParseFunctionHead();
     EXPECT_EQ(func.GetName(), "foo");
     EXPECT_EQ(func.GetReturnType(), Type::INTEGER);
     EXPECT_FALSE(func.GetArguments().size());
@@ -111,7 +111,9 @@ TEST(Function, FuncWithArgs)
 {
     std::istringstream iss("def foo(x : Int, y : Int) : Double = x + y");
     Parser parser(iss);
-    auto func = parser.ParseFunction();
+    auto func = parser.ParseFunctionHead();
+    parser.ReadNextToken();
+    func.SetBody(parser.ParseExpr());
     EXPECT_EQ(func.GetName(), "foo");
     EXPECT_TRUE(func.GetArguments().size() == 2);
     EXPECT_EQ(func.GetArguments()[0].name, "x");
@@ -133,7 +135,7 @@ TEST(FUNCTION, FuncCall)
                            "def main() : Int = foo(x, x)\n");
     Parser parser(iss); 
     auto program = parser.ParseProgram();
-    const auto& func = dynamic_cast<const CallExpr&>(program.functions.at("main").GetBody());
+    const auto& func = dynamic_cast<const CallExpr&>(*program.functions.at("main").GetBody());
     EXPECT_EQ(func.callee, "foo");
 }
 

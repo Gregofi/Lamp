@@ -103,7 +103,7 @@ public:
         }
         std::cout << "}}\n";
         offset += 1;
-        function.GetBody().Accept(*this);
+        function.GetBody()->Accept(*this);
         offset -= 1;
     }
 

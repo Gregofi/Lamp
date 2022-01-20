@@ -22,7 +22,7 @@ public:
         ReadNextToken();
     }
     Program ParseProgram();
-    Function ParseFunction();
+    Function ParseFunctionHead();
     std::unique_ptr<Stmt> ParseStmt();
     CompoundStmt ParseCompoundStmt();
     std::unique_ptr<Expr> ParseExpr();
@@ -32,6 +32,11 @@ public:
     std::unique_ptr<CallExpr> ParseFunctionCall(const std::string &name);
     std::unique_ptr<ReturnExpr> ParseReturnExpr();
     std::unique_ptr<CompoundExpr> ParseCompoundExpr();
+    
+    Token ReadNextToken()
+    {
+        return currTok = lexer.GetNextToken();
+    }
 protected:
     static Type MatchTypeToToken(Token token);
     static Operator MatchOperatorToToken(Token token);
@@ -77,11 +82,6 @@ protected:
         if(currTok != token)
             throw ParserError(std::move(error_message));
         return ReadNextToken();
-    }
-
-    Token ReadNextToken()
-    {
-        return currTok = lexer.GetNextToken();
     }
 
     Token currTok;
