@@ -100,7 +100,7 @@ Token Lexer::ParseNumLiteral() {
         FetchNext();
         if(base != 10 && base != 8)
         {
-            throw LexerError("Float numbers can only use base of 10.");
+            SignalError("Float numbers can only use base of 10.");
         }
         while(IsCorrectDigit(currChar, base))
         {
@@ -114,7 +114,19 @@ Token Lexer::ParseNumLiteral() {
     return Token::INT_LITERAL;
 }
 
-char Lexer::FetchNext() { return currChar = is.get();  }
+void Lexer::SignalError(std::string message) {
+    std::cerr << posLine << ":" << posChar << ": " << "\u001b[31m" << "error: \u001b[0m" << message << "\n";
+}
+
+char Lexer::FetchNext() {
+    ++ posChar; 
+    currChar = is.get();
+    if(currChar == '\n') {
+        posChar = 0;
+        ++ posLine;
+    }
+    return currChar;
+}
 
 bool Lexer::IsCorrectDigit(char c, int base) {
     if(base == 10)
@@ -133,7 +145,8 @@ bool Lexer::IsCorrectDigit(char c, int base) {
     {
         return c >= '0' && c <= '7';
     }
-    assert(false && "Allowed bases are 2, 8, 10 and 16.");
+    SignalError("Allowed bases are 2, 8, 10 and 16");
+    return false;
 }
 
 Token Lexer::ParseIdentifier() {
@@ -144,7 +157,7 @@ Token Lexer::ParseIdentifier() {
     }
     else
     {
-        throw LexerError("This is not valid name for identifier");
+        SignalError("Identifier has to start with a letter or _");
     }
     FetchNext();
     while(isalnum(currChar) || currChar == '_')

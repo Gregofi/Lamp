@@ -64,18 +64,24 @@ public:
     double GetDoubleVal() const { return floatVal; }
     std::string GetStringVal() const { return stringVal; }
     bool IsEOF() const { return is.eof(); }
+    void SignalError(std::string message); 
 protected:
     Token ParseNumLiteral();
     Token ParseIdentifier();
     char FetchNext();
-    static bool IsCorrectDigit(char c, int base);
+    bool IsCorrectDigit(char c, int base);
     std::optional<Token> ParseBraces() const;
-
+    
+    /* TODO : Put these guys in union or variant */
     char currChar{' '};
     int intVal{0};
     double floatVal{0.0};
     std::string stringVal{};
     std::istream &is;
+
+    /* Position info */
+    int posLine{1};
+    int posChar{0};
 
     static const std::map<std::string, Token> keywords_map;
     static const std::map<std::string, Token> operators_map;
