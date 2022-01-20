@@ -195,6 +195,14 @@ std::optional<Token> Lexer::ParseOperators() {
     {
         res = Token::OP_ASSIGN;
     }
+    if(currChar == '>')
+    {
+        res = Token::OP_GREATER;
+    }
+    if(currChar == '<')
+    {
+        res = Token::OP_LESS;
+    }
     return res;
 }
 

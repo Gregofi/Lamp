@@ -205,6 +205,8 @@ const static std::map<Token, int> precedences = {
         {Token::OP_PLUS, 40},
         {Token::OP_ASTERISK, 20},
         {Token::OP_EQUAL, 60},
+        {Token::OP_LESS, 50},
+        {Token::OP_GREATER, 50},
         {Token::OP_DIVIDE, 20},
 };
 
@@ -224,6 +226,8 @@ Operator Parser::MatchOperatorToToken(Token token)
         case Token::OP_EQUAL : return Operator::EQUAL;
         case Token::OP_PLUS : return Operator::PLUS;
         case Token::OP_MINUS : return Operator::MINUS;
+        case Token::OP_LESS : return Operator::LESS;
+        case Token::OP_GREATER : return Operator::GREATER;
         default: throw ParserError("Unknown operator");
     }
 }

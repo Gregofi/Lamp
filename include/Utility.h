@@ -15,6 +15,8 @@ enum class Operator
     ASSIGN,
     AND,
     OR,
+    GREATER,
+    LESS,
 };
 
 class MessageException : public std::exception

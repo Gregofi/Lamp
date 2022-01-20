@@ -30,6 +30,8 @@ enum class Token {
         OP_ASTERISK,
         OP_DIVIDE,
         OP_ASSIGN,
+        OP_GREATER,
+        OP_LESS,
         /* Other */
         IDENTIFIER,
         LBRACKET,
