@@ -1,5 +1,4 @@
-
-
+#include <climits>
 #include <cassert>
 #include "include/Parser.h"
 #include "include/Nodes/Type.h"
@@ -52,7 +51,7 @@ Function Parser::ParseFunctionHead()
             break;
         std::string arg_name = lexer.GetStringVal();
         FetchNextOrThrow(Token::DOUBLE_DOT, "Expected double dot after argument name");
-        auto type = MatchTypeToToken(ReadNextToken());
+        Type type = MatchTypeToToken(ReadNextToken());
         args.emplace_back(arg_name, type);
         ReadNextToken();
         if(currTok == Token::COMMA)
@@ -163,7 +162,7 @@ std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
 
     const auto &args = it->second.GetArguments();
     for(auto arg_it = args.begin(); arg_it != args.end(); arg_it = std::next(arg_it)) {
-        arguments.emplace(arg_it->name, std::move(ParseExpr()));
+        arguments.emplace(arg_it->name, ParseExpr());
         if(std::distance(arg_it, args.end()) != 1)
             CheckCurrentAndGetNext(Token::COMMA, "Expected more arguments in function call");
     }

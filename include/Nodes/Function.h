@@ -9,6 +9,7 @@
 #include "include/Visitor.h"
 
 struct Arg {
+    Arg(std::string name, Type type) : name(std::move(name)), type(type) {}
     std::string name;
     Type type;
 };
