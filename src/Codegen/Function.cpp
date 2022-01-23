@@ -17,7 +17,7 @@
 #include "include/Nodes/Type.h"
 
 llvm::Function* Codegen::GeneratePrototype(const Function &function) {
-    std::vector<llvm::Type*> types(function.GetArguments().size());
+    std::vector<llvm::Type*> types;
     for(const auto &arg : function.GetArguments()) {
         types.emplace_back(arg.type == Type::INTEGER 
                         ? llvm::Type::getInt32Ty(context) 
@@ -29,21 +29,22 @@ llvm::Function* Codegen::GeneratePrototype(const Function &function) {
                 ? llvm::Type::getInt32Ty(context)
                 : llvm::Type::getDoubleTy(context), types, false);
 
-    llvm::Function *f = llvm::Function::Create(ft, llvm::Function::ExternalLinkage, 
-                                               function.GetName(), module.get());
+    llvm::Function *gen_f = llvm::Function::Create(ft, llvm::Function::ExternalLinkage, 
+                                               function.GetName(), &module);
 
     size_t i = 0;
     const auto &args = function.GetArguments();
-    for(auto &arg : f->args())
-        arg.setName(args[i].name);
-
-    return f;    
+    
+    for(auto &arg : gen_f->args())
+        arg.setName(args[i++].name);
+    
+    return gen_f;    
 }
 
 /** TODO : Fix if extern declaration doesn't match arguments of definition */
 void Codegen::Visit(const Function &function)
 {
-    llvm::Function *gen_f = module->getFunction(function.GetName());
+    llvm::Function *gen_f = nullptr;
 
     if(!gen_f)
         gen_f = GeneratePrototype(function);
@@ -66,7 +67,8 @@ void Codegen::Visit(const Function &function)
         named_values[arg.getName()] = &arg;
 
     /* TODO : Fix this return value */
-    if(llvm::Value* retval = VIS_ACCEPT(function.GetBody())) {
+    llvm::Value* retval = VIS_ACCEPT(function.GetBody());
+    if(retval) {
         builder.CreateRet(retval);
         llvm::verifyFunction(*gen_f);
         VIS_RETURN(gen_f);
@@ -75,5 +77,4 @@ void Codegen::Visit(const Function &function)
     /* Error reading body */
     gen_f->eraseFromParent();
     VIS_RETURN(nullptr);
-
 }

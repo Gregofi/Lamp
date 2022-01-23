@@ -12,7 +12,8 @@ int main() {
         std::cout << p.what() << std::endl;
     }
     ASTPrinter ap;
-    program.Accept(ap);
+    // program.Accept(ap);
 
-
+    Codegen cg;
+    program.Accept(cg);
 }

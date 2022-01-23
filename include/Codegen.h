@@ -40,12 +40,17 @@ private:
 class Codegen : public Visitor
 {
 public:
-    Codegen() : builder(context) {}
+    Codegen() : builder(context), module("lamp codegen", context) {}
     void Visit(const BinExpr &expr) override;
     void Visit(const LiteralExpr &expr) override;
     void Visit(const CallExpr &expr) override;
     void Visit(const Function &function) override;
     void Visit(const Program &program) override;
+    void Visit(const ReturnExpr &expr) override;
+    void Visit(const CompoundExpr &expr) override;
+    void Visit(const IdenExpr &expr) override;
+    void Visit(const VarDecl &expr) override;
+    void Visit(const IfExpr &expr) override;
 private:
     llvm::Value* OperatorsInt(llvm::Value* lhs, llvm::Value *rhs, Operator op);
     llvm::Function* GeneratePrototype(const Function &function);
@@ -53,6 +58,6 @@ private:
     llvm::Value *ret_value;
     llvm::LLVMContext context;
     llvm::IRBuilder<> builder;
-    std::unique_ptr<llvm::Module> module;
+    llvm::Module module;
     llvm::StringMap<llvm::Value *> named_values;
 };

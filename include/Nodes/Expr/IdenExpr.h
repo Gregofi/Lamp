@@ -1,6 +1,8 @@
 #ifndef LAMP_IDENEXPR_H
 #define LAMP_IDENEXPR_H
 
+#include <string>
+
 #include "Expr.h"
 #include "include/Visitor.h"
 
