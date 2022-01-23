@@ -1,6 +1,7 @@
 #include <iostream>
 #include "include/Parser.h"
 #include "include/ASTPrinter.h"
+#include "include/Codegen.h"
 
 int main() {
     Program program;
@@ -12,4 +13,6 @@ int main() {
     }
     ASTPrinter ap;
     program.Accept(ap);
+
+
 }
