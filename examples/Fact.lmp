@@ -1,4 +1,3 @@
-
 def Fact(x : Int) : Int = if(x < 2) 1 else x * Fact(x - 1)
 
-def main() : Int = Fact(5)
+def main() : Int = writeln(Fact(5))
