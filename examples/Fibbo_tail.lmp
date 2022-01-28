@@ -10,4 +10,4 @@ def FibboTail(num : Int) : Int =
     else
         FibboTailAux(num, 1, 0)
 
-def main() : Int = writeln(FibboTail(6))
+def main() : Int = writeln(FibboTail(46))

@@ -1,5 +1,8 @@
 #include <exception>
 #include <string>
+#include <iostream>
+
+#include "fmt/format.h"
 
 #include "llvm/ADT/APFloat.h"
 #include "llvm/ADT/STLExtras.h"
@@ -27,21 +30,21 @@
 class CodegenError : public std::exception
 {
  public:
-    explicit CodegenError(std::string s) : message(std::move(s))  {}
+    explicit CodegenError(std::string s, int row, int col) : message(std::move(s)), loc(row, col)  {}
+    explicit CodegenError(std::string s, SourceLocation loc) : message(std::move(s)), loc(loc)  {}
     [[nodiscard]] const char *what() const noexcept override
     {
         return message.c_str();
     }
 
-private:
     std::string message;
-
+    SourceLocation loc;
 };
 
 class Codegen : public Visitor
 {
 public:
-    Codegen() : builder(context), module("lamp codegen", context) {}
+    Codegen(llvm::raw_ostream &output) : builder(context), module("lamp codegen", context), output(output) {}
     void Visit(const BinExpr &expr) override;
     void Visit(const LiteralExpr &expr) override;
     void Visit(const CallExpr &expr) override;
