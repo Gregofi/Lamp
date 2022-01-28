@@ -1,0 +1,7 @@
+def Fibbo(num : Int) : Int = 
+    if(num < 2) 
+        num 
+    else
+        Fibbo(num - 1) + Fibbo(num - 2)
+
+def main() : Int = writeln(Fibbo(6))
