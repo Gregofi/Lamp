@@ -27,8 +27,5 @@ void Codegen::Visit(const Program &program)
     for(const auto &f : program.functions) {
         f.second.Accept(*this);
     }
-    module.print(llvm::errs(), nullptr);
-
-
-
+    module.print(llvm::outs(), nullptr);
 }

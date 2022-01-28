@@ -4,6 +4,8 @@
 #include <iostream>
 
 #include "include/Visitor.h"
+#include "include/Nodes/Function.h"
+#include "include/Nodes/Program.h"
 #include "include/Nodes/Expr/BinExpr.h"
 #include "include/Nodes/Expr/LiteralExpr.h"
 #include "include/Nodes/Expr/ReturnExpr.h"

@@ -4,24 +4,24 @@
 #include <optional>
 
 
-const std::map<std::string, Token> Lexer::keywords_map = {
-        {"def", Token::DEF},
-        {"class", Token::CLASS},
-        {"return", Token::RETURN},
-        {"if", Token::IF},
-        {"else", Token::ELSE},
-        {"val", Token::VAL},
-        {"var", Token::VAR},
-        {"Int", Token::INT},
-        {"Double", Token::DOUBLE},
+const std::map<std::string, Token::Kind> Lexer::keywords_map = {
+        {"def", Token::Kind::DEF},
+        {"class", Token::Kind::CLASS},
+        {"return", Token::Kind::RETURN},
+        {"if", Token::Kind::IF},
+        {"else", Token::Kind::ELSE},
+        {"val", Token::Kind::VAL},
+        {"var", Token::Kind::VAR},
+        {"Int", Token::Kind::INT},
+        {"Double", Token::Kind::DOUBLE},
 };
 
-const std::map<std::string, Token> Lexer::operators_map = {
-        {"+", Token::OP_PLUS},
-        {"-", Token::OP_MINUS},
-        {"/", Token::OP_DIVIDE},
-        {"*", Token::OP_ASTERISK},
-        {"==", Token::OP_EQUAL},
+const std::map<std::string, Token::Kind> Lexer::operators_map = {
+        {"+", Token::Kind::OP_PLUS},
+        {"-", Token::Kind::OP_MINUS},
+        {"/", Token::Kind::OP_DIVIDE},
+        {"*", Token::Kind::OP_ASTERISK},
+        {"==", Token::Kind::OP_EQUAL},
 };
 
 Token Lexer::GetNextToken() {
@@ -33,7 +33,7 @@ Token Lexer::GetNextToken() {
     }
 
     if(currChar == EOF)
-        return Token::END_OF_INPUT;
+        return CreateTok(Token::Kind::END_OF_INPUT);
 
         /* Handle numbers */
     if(isdigit(currChar))
@@ -49,7 +49,7 @@ Token Lexer::GetNextToken() {
     if(currChar == ':')
     {
         FetchNext();
-        return Token::DOUBLE_DOT;
+        return CreateTok(Token::Kind::DOUBLE_DOT);
     }
     if(auto op = ParseOperators())
     {
@@ -60,7 +60,7 @@ Token Lexer::GetNextToken() {
     if(currChar == ',')
     {
         FetchNext();
-        return Token::COMMA;
+        return CreateTok(Token::Kind::COMMA);
     }
 
     /* At the end, parse keywords and identifiers */
@@ -108,10 +108,10 @@ Token Lexer::ParseNumLiteral() {
             FetchNext();
         }
         floatVal = strtod(num.c_str(), nullptr);
-        return Token::FLOAT_LITERAL;
+        return CreateTok(Token::Kind::FLOAT_LITERAL);
     }
     intVal = strtol(num.c_str(), nullptr, base);
-    return Token::INT_LITERAL;
+    return CreateTok(Token::Kind::INT_LITERAL);
 }
 
 void Lexer::SignalError(std::string message) {
@@ -165,23 +165,23 @@ Token Lexer::ParseIdentifier() {
         s += currChar;
         FetchNext();
     }
-    if(keywords_map.contains(s))
+    if(keywords_map.count(s))
     {
-        return keywords_map.at(s);
+        return CreateTok(keywords_map.at(s));
     }
     stringVal = s;
-    return Token::IDENTIFIER;
+    return CreateTok(Token::Kind::IDENTIFIER);
 }
 
 std::optional<Token> Lexer::ParseBraces() const {
     switch(currChar)
     {
-        case '(' : return Token::LBRACKET;
-        case ')' : return Token::RBRACKET;
-        case '{' : return Token::LCURLYB;
-        case '}' : return Token::RCURLYB;
-        case '[' : return Token::LSQUAREB;
-        case ']' : return Token::RSQUAREB;
+        case '(' : return CreateTok(Token::Kind::LBRACKET);
+        case ')' : return CreateTok(Token::Kind::RBRACKET);
+        case '{' : return CreateTok(Token::Kind::LCURLYB);
+        case '}' : return CreateTok(Token::Kind::RCURLYB);
+        case '[' : return CreateTok(Token::Kind::LSQUAREB);
+        case ']' : return CreateTok(Token::Kind::RSQUAREB);
     }
     return std::nullopt;
 }
@@ -190,32 +190,31 @@ std::optional<Token> Lexer::ParseOperators() {
     std::optional<Token> res;
     if(currChar == '+')
     {
-        res = Token::OP_PLUS;
+        res = CreateTok(Token::Kind::OP_PLUS);
     }
     if(currChar == '-')
     {
-        res = Token::OP_MINUS;
+        res = CreateTok(Token::Kind::OP_MINUS);
     }
     if(currChar == '*')
     {
-        res = Token::OP_ASTERISK;
+        res = CreateTok(Token::Kind::OP_ASTERISK);
     }
     if(currChar == '/')
     {
-        res = Token::OP_DIVIDE;
+        res = CreateTok(Token::Kind::OP_DIVIDE);
     }
     if(currChar == '=')
     {
-        res = Token::OP_ASSIGN;
+        res = CreateTok(Token::Kind::OP_ASSIGN);
     }
     if(currChar == '>')
     {
-        res = Token::OP_GREATER;
+        res = CreateTok(Token::Kind::OP_GREATER);
     }
     if(currChar == '<')
     {
-        res = Token::OP_LESS;
+        res = CreateTok(Token::Kind::OP_LESS);
     }
     return res;
 }
-

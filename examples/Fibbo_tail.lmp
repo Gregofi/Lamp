@@ -1,0 +1,13 @@
+def FibboTailAux(num : Int, acc1 : Int, acc2 : Int) : Int =
+    if(num < 2)
+        acc1
+    else
+        FibboTailAux(num - 1, acc1 + acc2, acc1)
+
+def FibboTail(num : Int) : Int =
+    if(num < 1)
+        0
+    else
+        FibboTailAux(num, 1, 0)
+
+def main() : Int = writeln(FibboTail(6))

@@ -7,47 +7,10 @@
 #include <optional>
 
 #include "include/Utility.h"
+#include "include/Token.h"
 
 #define POW2(x) (1 << (x))
 
-enum class Token {
-        /* Literals */
-        INT_LITERAL,
-        FLOAT_LITERAL,
-        STRING_LITERAL,
-        /* Data types */
-        INT,
-        DOUBLE,
-        STRING,
-        /* Other keywords */
-        DEF,
-        CLASS,
-        RETURN,
-        /* Operators */
-        OP_EQUAL,
-        OP_PLUS,
-        OP_MINUS,
-        OP_ASTERISK,
-        OP_DIVIDE,
-        OP_ASSIGN,
-        OP_GREATER,
-        OP_LESS,
-        /* Other */
-        IDENTIFIER,
-        LBRACKET,
-        RBRACKET,
-        LSQUAREB,
-        RSQUAREB,
-        LCURLYB,
-        RCURLYB,
-        IF,
-        ELSE,
-        DOUBLE_DOT,
-        END_OF_INPUT,
-        VAL,
-        VAR,
-        COMMA,
-};
 
 class LexerError : public MessageException
 {
@@ -66,6 +29,11 @@ public:
     bool IsEOF() const { return is.eof(); }
     void SignalError(std::string message); 
 protected:
+    Token CreateTok(Token::Kind kind) const
+    {
+        return Token(kind, posLine, posChar);
+    }
+
     Token ParseNumLiteral();
     Token ParseIdentifier();
     char FetchNext();
@@ -83,8 +51,8 @@ protected:
     int posLine{1};
     int posChar{0};
 
-    static const std::map<std::string, Token> keywords_map;
-    static const std::map<std::string, Token> operators_map;
+    static const std::map<std::string, Token::Kind> keywords_map;
+    static const std::map<std::string, Token::Kind> operators_map;
 
     std::optional<Token> ParseOperators();
 };

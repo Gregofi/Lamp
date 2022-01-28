@@ -5,12 +5,13 @@
 #include <utility>
 #include <memory>
 #include "include/Nodes/Type.h"
-#include "src/ParserError.h"
+#include "include/ParserError.h"
 #include "include/Nodes/Expr/CallExpr.h"
 #include "include/Nodes/Expr/ReturnExpr.h"
 #include "include/Nodes/Expr/CompoundExpr.h"
 #include "include/Nodes/Includes.h"
 #include "Lexer.h"
+#include "include/Token.h"
 
 #define ENTRY_FUNCTION_NAME "main"
 
@@ -55,10 +56,10 @@ protected:
      * @param error_message - Error message to be displayed if token at input doesn't match
      * @throws ParserError - If token is not the same as input token
      */
-    void FetchNextOrThrow(Token token, std::string error_message)
+    void FetchNextOrThrow(Token::Kind token, std::string error_message)
     {
         if(ReadNextToken() != token)
-            throw ParserError(std::move(error_message));
+            throw ParserError(std::move(error_message), currTok.loc);
     }
     /**
      * Returns binary operator precedence for given token (Higher number means lower precedence).
@@ -77,11 +78,21 @@ protected:
      * @param error_message - message to be passed to exception if token doesn't match
      * @return Next token from input
      */
-    Token CheckCurrentAndGetNext(Token token, std::string error_message)
+    Token CheckCurrentAndGetNext(Token::Kind token, const std::string &error_message)
     {
         if(currTok != token)
-            throw ParserError(std::move(error_message));
+            throw ParserError(std::move(error_message), currTok.loc);
         return ReadNextToken();
+    }
+
+    /**
+     * Prints an compiler error to std::cerr, DOESN'T do error handling.
+     */
+    void ErrorReport(const ParserError &err)
+    {
+        std::cerr << err.loc.row << ":" << err.loc.column << ": " 
+            << "\u001b[31m" << "error: \u001b[0m" 
+            << err.s << "\n";
     }
 
     Token currTok;

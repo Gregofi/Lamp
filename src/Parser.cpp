@@ -2,7 +2,7 @@
 #include <cassert>
 #include "include/Parser.h"
 #include "include/Nodes/Type.h"
-#include "ParserError.h"
+#include "include/ParserError.h"
 #include "include/Nodes/Expr/IdenExpr.h"
 #include "include/Nodes/Expr/IfExpr.h"
 #include "include/Nodes/Expr/CallExpr.h"
@@ -14,50 +14,61 @@
 Program Parser::ParseProgram()
 {
     while(!lexer.IsEOF()) {
-        if(currTok == Token::DEF) {
-            auto func = ParseFunctionHead();
-            std::string name = func.GetName();
-            auto func_it = functions.insert(std::make_pair(name, std::move(func))).first;
-            if(currTok == Token::OP_ASSIGN) {
-                ReadNextToken();
-                auto body = ParseExpr();
-                func_it->second.SetBody(std::move(body));
+        try {
+            if(currTok == Token::Kind::DEF) {
+                auto func = ParseFunctionHead();
+                std::string name = func.GetName();
+                auto func_it = functions.insert(std::make_pair(name, std::move(func))).first;
+                if(currTok == Token::Kind::OP_ASSIGN) {
+                    ReadNextToken();
+                    auto body = ParseExpr();
+                    func_it->second.SetBody(std::move(body));
+                }
+            } else if(currTok == Token::Kind::CLASS) {
+                throw std::runtime_error("Parsing classes is not yet implemented.");
+            } else {
+                throw ParserError("Expected either function or class definition", currTok.loc);
             }
-        } else if(currTok == Token::CLASS) {
-            throw std::runtime_error("Parsing classes is not yet implemented.");
-        } else {
-            throw ParserError("Expected either function or class definition");
+        /* Error handling */
+        } catch (const ParserError &err) {
+            /* Report the error */
+            ErrorReport(err);
+            /* Eat tokens until a new function declaration or class declaration has been found */
+            while(currTok != Token::Kind::DEF 
+                    || currTok != Token::Kind::CLASS 
+                    || currTok != Token::Kind::END_OF_INPUT)
+                ReadNextToken();
         }
     }
     if(!functions.count(ENTRY_FUNCTION_NAME)) {
-        throw ParserError("Function " ENTRY_FUNCTION_NAME " not found.");
+        throw ParserError("Function " ENTRY_FUNCTION_NAME " not found.", currTok.loc);
     }
     return Program(std::move(functions), {});
 }
 
 Function Parser::ParseFunctionHead()
 {
-    if(ReadNextToken() != Token::IDENTIFIER) {
-        throw ParserError("Expected an function name after 'def' keyword.");
+    if(ReadNextToken() != Token::Kind::IDENTIFIER) {
+        throw ParserError("Expected an function name after 'def' keyword.", currTok.loc);
     }
     std::string fname = lexer.GetStringVal();
-    FetchNextOrThrow(Token::LBRACKET, "Expected left bracket after function name");
+    FetchNextOrThrow(Token::Kind::LBRACKET, "Expected left bracket after function name");
 
     std::vector<Arg> args;
     /* Parse function params */
     ReadNextToken();
     while(true) {
-        if(currTok == Token::RBRACKET)
+        if(currTok == Token::Kind::RBRACKET)
             break;
         std::string arg_name = lexer.GetStringVal();
-        FetchNextOrThrow(Token::DOUBLE_DOT, "Expected double dot after argument name");
+        FetchNextOrThrow(Token::Kind::DOUBLE_DOT, "Expected double dot after argument name");
         Type type = MatchTypeToToken(ReadNextToken());
         args.emplace_back(arg_name, type);
         ReadNextToken();
-        if(currTok == Token::COMMA)
-            FetchNextOrThrow(Token::IDENTIFIER, "Expected identifier after comma in argument list");
+        if(currTok == Token::Kind::COMMA)
+            FetchNextOrThrow(Token::Kind::IDENTIFIER, "Expected identifier after comma in argument list");
     }
-    FetchNextOrThrow(Token::DOUBLE_DOT, "Expected ': ret_type' after argument list");
+    FetchNextOrThrow(Token::Kind::DOUBLE_DOT, "Expected ': ret_type' after argument list");
     auto type = MatchTypeToToken(ReadNextToken()); 
     ReadNextToken(); 
     return {std::move(fname), type, std::move(args)};
@@ -65,18 +76,18 @@ Function Parser::ParseFunctionHead()
 
 std::unique_ptr<Expr> Parser::ParseExpr()
 {
-    if (currTok == Token::IF) {
+    if (currTok == Token::Kind::IF) {
         return ParseIfExpr();
-    } else if (currTok == Token::RETURN) {
+    } else if (currTok == Token::Kind::RETURN) {
         return ParseReturnExpr();
-    } else if (currTok == Token::VAL || currTok == Token::VAR) {
+    } else if (currTok == Token::Kind::VAL || currTok == Token::Kind::VAR) {
         return ParseVarDecl();
-    } else if (currTok == Token::LCURLYB) {
+    } else if (currTok == Token::Kind::LCURLYB) {
         return ParseCompoundExpr();
     } else {
         auto binexpr = ParseBinExpr();
         if (!binexpr) {
-            throw ParserError("Unknown expression");
+            throw ParserError("Unknown expression", currTok.loc);
         }
         return binexpr;
     } 
@@ -84,11 +95,11 @@ std::unique_ptr<Expr> Parser::ParseExpr()
 
 Type Parser::MatchTypeToToken(Token token)
 {
-    switch(token)
+    switch(token.kind)
     {
-        case Token::INT : return Type::INTEGER;
-        case Token::DOUBLE : return Type::DOUBLE;
-        default : throw ParserError("Expected type");
+        case Token::Kind::INT : return Type::INTEGER;
+        case Token::Kind::DOUBLE : return Type::DOUBLE;
+        default : throw ParserError("Expected type", token.loc);
     }
 }
 
@@ -131,19 +142,19 @@ std::unique_ptr<Expr> Parser::ParseBinExprRHS(int precedence, std::unique_ptr<Ex
 
 std::unique_ptr<Expr> Parser::ParseIfExpr() 
 {
-    assert(currTok == Token::IF);
+    assert(currTok == Token::Kind::IF);
          
-    FetchNextOrThrow(Token::LBRACKET, "Expected opening bracket after 'if' keyword");   
+    FetchNextOrThrow(Token::Kind::LBRACKET, "Expected opening bracket after 'if' keyword");   
     ReadNextToken(); 
     
     auto cond = ParseExpr();
     
-    CheckCurrentAndGetNext(Token::RBRACKET, 
+    CheckCurrentAndGetNext(Token::Kind::RBRACKET, 
                            "Expected closing bracket after 'if' condition");
     
     auto body = ParseExpr();
 
-    if(currTok == Token::ELSE)
+    if(currTok == Token::Kind::ELSE)
     {
         ReadNextToken();
         auto else_body = ParseExpr();
@@ -159,19 +170,19 @@ std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
 
     while(true) {
         arguments.emplace_back(ParseExpr());
-        if(currTok != Token::COMMA)
+        if(currTok != Token::Kind::COMMA)
             break;
         ReadNextToken();
     }
     
-    CheckCurrentAndGetNext(Token::RBRACKET, "Expected closing bracket after arguments");
+    CheckCurrentAndGetNext(Token::Kind::RBRACKET, "Expected closing bracket after arguments");
 
     return std::make_unique<CallExpr>(name, std::move(arguments));
 }
 
 std::unique_ptr<ReturnExpr> Parser::ParseReturnExpr()
 {
-    assert(currTok == Token::RETURN);
+    assert(currTok == Token::Kind::RETURN);
     ReadNextToken();
     return std::make_unique<ReturnExpr>(ParseExpr());
 }
@@ -179,36 +190,36 @@ std::unique_ptr<ReturnExpr> Parser::ParseReturnExpr()
 std::unique_ptr<Expr> Parser::ParsePrimary()
 {
     std::unique_ptr<Expr> result;
-    if(currTok == Token::IDENTIFIER) {
+    if(currTok == Token::Kind::IDENTIFIER) {
         std::string id = lexer.GetStringVal();
-        if(ReadNextToken() == Token::LBRACKET) {
+        if(ReadNextToken() == Token::Kind::LBRACKET) {
             ReadNextToken();
             return ParseFunctionCall(id);
         } else {
             return std::make_unique<IdenExpr>(std::move(id));
         }
-    } else if(currTok == Token::INT_LITERAL) {
+    } else if(currTok == Token::Kind::INT_LITERAL) {
         result = std::make_unique<LiteralExpr>(lexer.GetIntVal());
-    } else if(currTok == Token::FLOAT_LITERAL) {
+    } else if(currTok == Token::Kind::FLOAT_LITERAL) {
         result = std::make_unique<LiteralExpr>(lexer.GetDoubleVal());
     }
     ReadNextToken();
     return result;
 }
 
-const static std::map<Token, int> precedences = {
-        {Token::OP_MINUS, 40},
-        {Token::OP_PLUS, 40},
-        {Token::OP_ASTERISK, 20},
-        {Token::OP_EQUAL, 60},
-        {Token::OP_LESS, 50},
-        {Token::OP_GREATER, 50},
-        {Token::OP_DIVIDE, 20},
+const static std::map<Token::Kind, int> precedences = {
+        {Token::Kind::OP_MINUS, 40},
+        {Token::Kind::OP_PLUS, 40},
+        {Token::Kind::OP_ASTERISK, 20},
+        {Token::Kind::OP_EQUAL, 60},
+        {Token::Kind::OP_LESS, 50},
+        {Token::Kind::OP_GREATER, 50},
+        {Token::Kind::OP_DIVIDE, 20},
 };
 
 int Parser::GetTokenPrecedence(Token token)
 {
-    auto prec = precedences.find(token);
+    auto prec = precedences.find(token.kind);
     if(prec == precedences.end())
         return INT_MIN;
     return prec->second;
@@ -216,15 +227,15 @@ int Parser::GetTokenPrecedence(Token token)
 
 Operator Parser::MatchOperatorToToken(Token token)
 {
-    switch(token) {
-        case Token::OP_DIVIDE : return Operator::DIVIDE;
-        case Token::OP_ASTERISK : return Operator::MULTIPLY;
-        case Token::OP_EQUAL : return Operator::EQUAL;
-        case Token::OP_PLUS : return Operator::PLUS;
-        case Token::OP_MINUS : return Operator::MINUS;
-        case Token::OP_LESS : return Operator::LESS;
-        case Token::OP_GREATER : return Operator::GREATER;
-        default: throw ParserError("Unknown operator");
+    switch(token.kind) {
+        case Token::Kind::OP_DIVIDE : return Operator::DIVIDE;
+        case Token::Kind::OP_ASTERISK : return Operator::MULTIPLY;
+        case Token::Kind::OP_EQUAL : return Operator::EQUAL;
+        case Token::Kind::OP_PLUS : return Operator::PLUS;
+        case Token::Kind::OP_MINUS : return Operator::MINUS;
+        case Token::Kind::OP_LESS : return Operator::LESS;
+        case Token::Kind::OP_GREATER : return Operator::GREATER;
+        default: throw ParserError("Unknown operator", token.loc);
     }
 }
 
@@ -235,19 +246,19 @@ std::unique_ptr<Stmt> Parser::ParseStmt()
 
 std::unique_ptr<VarDecl> Parser::ParseVarDecl()
 {
-    assert(currTok == Token::VAL || currTok == Token::VAR);
-    bool is_mutable = currTok == Token::VAR;
+    assert(currTok == Token::Kind::VAL || currTok == Token::Kind::VAR);
+    bool is_mutable = currTok == Token::Kind::VAR;
 
-    FetchNextOrThrow(Token::IDENTIFIER, "Expected an identifier after 'val' keyword");
+    FetchNextOrThrow(Token::Kind::IDENTIFIER, "Expected an identifier after 'val' keyword");
     std::string name = lexer.GetStringVal();
 
-    FetchNextOrThrow(Token::DOUBLE_DOT, "Expected an : DATA_TYPE after val name");
+    FetchNextOrThrow(Token::Kind::DOUBLE_DOT, "Expected an : DATA_TYPE after val name");
     ReadNextToken();
     auto type = MatchTypeToToken(currTok);
 
     ReadNextToken();
     std::unique_ptr<Expr> value;
-    if(currTok == Token::OP_ASSIGN) {
+    if(currTok == Token::Kind::OP_ASSIGN) {
         ReadNextToken();
         value = ParseExpr(); 
     }
@@ -257,12 +268,12 @@ std::unique_ptr<VarDecl> Parser::ParseVarDecl()
 
 std::unique_ptr<CompoundExpr> Parser::ParseCompoundExpr()
 {
-    assert(currTok == Token::LCURLYB);
+    assert(currTok == Token::Kind::LCURLYB);
     ReadNextToken();
     std::vector<std::unique_ptr<Expr> > exprs;
-    while(currTok != Token::RCURLYB) {
+    while(currTok != Token::Kind::RCURLYB) {
         exprs.emplace_back(ParseExpr());
     }
-    CheckCurrentAndGetNext(Token::RCURLYB, "Expected closing curly bracket at the end of compound expr");
+    CheckCurrentAndGetNext(Token::Kind::RCURLYB, "Expected closing curly bracket at the end of compound expr");
     return std::make_unique<CompoundExpr>(std::move(exprs));
 }
