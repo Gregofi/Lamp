@@ -120,7 +120,7 @@ void Codegen::Visit(const CallExpr &expr)
 
     std::vector<Value*> arg_v;
     for(const auto &arg : expr.arguments) {
-        arg_v.emplace_back(VIS_ACCEPT(arg.second));
+        arg_v.emplace_back(VIS_ACCEPT(arg));
         if(!arg_v.back()) {
             std::cerr << "Error while parsing callexpr arguments" << std::endl;
             VIS_RETURN(nullptr);

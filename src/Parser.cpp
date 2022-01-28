@@ -155,16 +155,13 @@ std::unique_ptr<Expr> Parser::ParseIfExpr()
 
 std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
 {
-    std::map<std::string, std::unique_ptr<Expr> > arguments;
-    auto it = functions.find(name);
-    if(it == functions.end())
-        throw ParserError("Calling an undefined function " + name);
+    std::vector<std::unique_ptr<Expr> > arguments;
 
-    const auto &args = it->second.GetArguments();
-    for(auto arg_it = args.begin(); arg_it != args.end(); arg_it = std::next(arg_it)) {
-        arguments.emplace(arg_it->name, ParseExpr());
-        if(std::distance(arg_it, args.end()) != 1)
-            CheckCurrentAndGetNext(Token::COMMA, "Expected more arguments in function call");
+    while(true) {
+        arguments.emplace_back(ParseExpr());
+        if(currTok != Token::COMMA)
+            break;
+        ReadNextToken();
     }
     
     CheckCurrentAndGetNext(Token::RBRACKET, "Expected closing bracket after arguments");

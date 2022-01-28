@@ -138,5 +138,3 @@ TEST(FUNCTION, FuncCall)
     const auto& func = dynamic_cast<const CallExpr&>(*program.functions.at("main").GetBody());
     EXPECT_EQ(func.callee, "foo");
 }
-
-
