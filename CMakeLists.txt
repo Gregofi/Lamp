@@ -5,7 +5,6 @@ set(CMAKE_CXX_COMPILER clang++)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -g -fsanitize=address -I${PROJECT_SOURCE_DIR}")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
 add_executable(lamp 
         main.cpp 
         src/Lexer.cpp
@@ -34,12 +33,14 @@ add_executable(
 # Get all LLVM libs
 execute_process(COMMAND llvm-config --libs all
 OUTPUT_VARIABLE llvm_libs)
-
 # The command also outputs whitespace, strip it here
 string(STRIP ${llvm_libs} llvm_libs)
 
+find_package(fmt)
+
 target_link_libraries(
         lexer_test
+        fmt::fmt
         gtest
         gtest_main
         pthread
@@ -48,6 +49,7 @@ target_link_libraries(
 
 target_link_libraries(
         parser_test
+        fmt::fmt
         gtest
         gtest_main
         pthread
@@ -56,6 +58,7 @@ target_link_libraries(
 
 target_link_libraries(
         lamp
+        fmt::fmt
         ${llvm_libs}
 )
 
