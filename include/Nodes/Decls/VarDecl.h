@@ -5,12 +5,13 @@
 #include <memory>
 #include "include/Nodes/Type.h"
 #include "include/Nodes/Expr/Expr.h"
+#include "include/Token.h"
 
 class VarDecl : public Expr
 {
 public:
-    VarDecl(std::string name, Type type, bool is_mutable, std::unique_ptr<Expr> value = nullptr) 
-        : name(std::move(name)), type(type), 
+    VarDecl(std::string name, Type type, bool is_mutable, std::unique_ptr<Expr> value, SourceLocation loc) 
+        : Expr(loc), name(std::move(name)), type(type), 
           is_mutable(is_mutable), value(std::move(value)) {}
     std::string GetName() const { return name; }
     Type GetType() const { return type; }

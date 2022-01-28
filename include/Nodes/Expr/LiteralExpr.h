@@ -3,13 +3,14 @@
 
 #include <variant>
 #include "include/Nodes/Expr/Expr.h"
+#include "include/Token.h"
 #include "include/Visitor.h"
 
 class LiteralExpr : public Expr
 {
 public:
-    explicit LiteralExpr(int val) : value(val) {}
-    explicit LiteralExpr(double val) : value(val) {}
+    explicit LiteralExpr(int val, SourceLocation loc) : Expr(loc), value(val) {}
+    explicit LiteralExpr(double val, SourceLocation loc) : Expr(loc), value(val) {}
     const std::variant<int, double> &GetValue() const
     {
         return value;

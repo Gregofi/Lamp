@@ -9,8 +9,10 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Verifier.h"
+#include "llvm/IR/Instructions.h"
 
-#include <llvm/IR/Instructions.h>
+#include <fmt/format.h>
+
 #include <variant>
 #include <iostream>
 
@@ -57,7 +59,7 @@ Value* Codegen::OperatorsInt(Value* lhs, Value *rhs, ::Operator op)
             return builder.CreateIntCast(builder.CreateICmpSLT(lhs, rhs, "lesstmp"), 
                                         llvm::Type::getInt32Ty(context), false);
         default:
-            std::cerr << "Not implemented operator!" << std::endl;
+            throw CodegenError("Operator is not yet implemented '", {0, 0});
             return nullptr; /* TODO */
         }
 
@@ -75,6 +77,7 @@ void Codegen::Visit(const BinExpr &expr)
 
     if(rhs->getType() != lhs->getType()) {
         /* TODO : Do something here, either cast or throw an error */
+
         std::cerr << "BinExpr types are not the same" << std::endl;
         lhs->getType()->print(llvm::errs());
         llvm::errs() << "\n";
@@ -85,8 +88,7 @@ void Codegen::Visit(const BinExpr &expr)
 
     /* Integer operators are only implemented for now */
     if(rhs->getType()->isFloatTy() || lhs->getType()->isFloatTy()) {
-        std::cerr << "Floating point operations not yet supported" << std::endl;
-        VIS_RETURN(nullptr);
+        throw CodegenError(fmt::format("Floating point operations are not yet supported"), expr.GetLocation());
     }
 
     VIS_RETURN(OperatorsInt(lhs, rhs, expr.GetOp()));
@@ -109,13 +111,12 @@ void Codegen::Visit(const CallExpr &expr)
 {
     llvm::Function *callee = module.getFunction(expr.callee);
     if(!callee) {
-        std::cerr << "Unknown function referenced" << std::endl;
-        VIS_RETURN(nullptr);
+        throw CodegenError(fmt::format("Function called here '{}' is unknown", expr.callee), expr.GetLocation());
     }
 
     if(callee->arg_size() != expr.arguments.size()) {
-        std::cerr << "Wrong number of arguments passed" << std::endl;
-        VIS_RETURN(nullptr);
+        throw CodegenError(fmt::format("Function '{}' requires {} arguments, {} given", 
+                                        expr.callee, callee->arg_size(), expr.arguments.size()), expr.GetLocation());
     }
 
     std::vector<Value*> arg_v;
@@ -166,10 +167,6 @@ void Codegen::Visit(const IfExpr &expr)
     builder.SetInsertPoint(elseBB);
 
     llvm::Value *else_v = VIS_ACCEPT(expr.GetElseBody());
-    if(!else_v) {
-        std::cerr << "Couldn't parse else body" << std::endl;
-        VIS_RETURN(nullptr);
-    }
 
     builder.CreateBr(mergeBB);
     elseBB = builder.GetInsertBlock();
@@ -187,8 +184,7 @@ void Codegen::Visit(const IdenExpr &expr)
 {
     llvm::Value *v = named_values[expr.GetName()];
     if(!v) {
-        std::cerr << "IdenExpr couldn't find named value" << std::endl;
-        VIS_RETURN(nullptr);
+        throw CodegenError(fmt::format("Couldn't find identifier '{}'", expr.GetName()), expr.GetLocation());
     }
     VIS_RETURN(v);
 }

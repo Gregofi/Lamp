@@ -1,4 +1,5 @@
 #include <iostream>
+#include <system_error>
 #include "include/Parser.h"
 #include "include/ASTPrinter.h"
 #include "include/Codegen.h"
@@ -14,6 +15,8 @@ int main() {
     ASTPrinter ap;
     // program.Accept(ap);
 
-    Codegen cg;
+    std::error_code ec;
+    llvm::raw_fd_ostream file("out.ll", ec);
+    Codegen cg(file);
     program.Accept(cg);
 }

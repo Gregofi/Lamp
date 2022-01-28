@@ -116,7 +116,7 @@ public:
         PrintOffset();
         offset += 1;
         for(const auto &f : program.functions) {
-            f.second.Accept(*this);
+            f.Accept(*this);
         }
         offset -= 1;
     }

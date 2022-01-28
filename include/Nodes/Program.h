@@ -3,7 +3,7 @@
 
 #include <memory>
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include "include/Nodes/Node.h"
 #include "include/Nodes/Stmt/Stmt.h"
 #include "include/Nodes/Class.h"
@@ -16,14 +16,14 @@ class Program
 {
 public:
     Program() = default;
-    Program(std::map<std::string, Function> functions,
-            std::map<std::string, std::unique_ptr<Class> > classes)
+    Program(std::vector<Function> functions,
+            std::vector<std::unique_ptr<Class> > classes)
                     : functions(std::move(functions)), classes(std::move(classes))
     {
 
     }
-    std::map<std::string, Function> functions;
-    std::map<std::string, std::unique_ptr<Class> > classes;
+    std::vector<Function> functions;
+    std::vector<std::unique_ptr<Class> > classes;
     void Accept(Visitor &v) const { v.Visit(*this); }
 };
 

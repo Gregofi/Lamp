@@ -9,6 +9,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/Verifier.h"
+#include "llvm/Support/raw_ostream.h"
 
 #include "include/Codegen.h"
 #include "include/Nodes/Program.h"
@@ -23,9 +24,13 @@ void Codegen::Visit(const Program &program)
         llvm::Function::ExternalLinkage, 
         "writeln",
         module);
-
     for(const auto &f : program.functions) {
-        f.second.Accept(*this);
+        try {
+            f.Accept(*this);
+        } catch (const CodegenError &err) {
+            llvm::errs() << "In function " << f.GetName() << "\n";
+            ErrorReport(err);
+        }
     }
-    module.print(llvm::outs(), nullptr);
+    module.print(output, nullptr);
 }

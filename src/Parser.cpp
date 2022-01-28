@@ -17,12 +17,13 @@ Program Parser::ParseProgram()
         try {
             if(currTok == Token::Kind::DEF) {
                 auto func = ParseFunctionHead();
-                std::string name = func.GetName();
-                auto func_it = functions.insert(std::make_pair(name, std::move(func))).first;
+                auto &inserted_func = functions.emplace_back(std::move(func));
                 if(currTok == Token::Kind::OP_ASSIGN) {
                     ReadNextToken();
                     auto body = ParseExpr();
-                    func_it->second.SetBody(std::move(body));
+                    inserted_func.SetBody(std::move(body));
+                    if(inserted_func.GetName() == ENTRY_FUNCTION_NAME)
+                        hasMain = true;
                 }
             } else if(currTok == Token::Kind::CLASS) {
                 throw std::runtime_error("Parsing classes is not yet implemented.");
@@ -40,9 +41,8 @@ Program Parser::ParseProgram()
                 ReadNextToken();
         }
     }
-    if(!functions.count(ENTRY_FUNCTION_NAME)) {
-        throw ParserError("Function " ENTRY_FUNCTION_NAME " not found.", currTok.loc);
-    }
+    if(!hasMain)
+        throw ParserError("No main function found", currTok.loc);
     return Program(std::move(functions), {});
 }
 
@@ -136,7 +136,7 @@ std::unique_ptr<Expr> Parser::ParseBinExprRHS(int precedence, std::unique_ptr<Ex
                 return nullptr;
         }
 
-        LHS = std::make_unique<BinExpr>(std::move(LHS), std::move(RHS), MatchOperatorToToken(bin_op));
+        LHS = std::make_unique<BinExpr>(std::move(LHS), std::move(RHS), MatchOperatorToToken(bin_op), currTok.loc);
     }
 }
 
@@ -158,10 +158,10 @@ std::unique_ptr<Expr> Parser::ParseIfExpr()
     {
         ReadNextToken();
         auto else_body = ParseExpr();
-        return std::make_unique<IfExpr>(std::move(cond), std::move(body), std::move(else_body));
+        return std::make_unique<IfExpr>(std::move(cond), std::move(body), std::move(else_body), currTok.loc);
     }
 
-    return std::make_unique<IfExpr>(std::move(cond), std::move(body));
+    return std::make_unique<IfExpr>(std::move(cond), std::move(body), nullptr, currTok.loc);
 }
 
 std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
@@ -177,14 +177,14 @@ std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
     
     CheckCurrentAndGetNext(Token::Kind::RBRACKET, "Expected closing bracket after arguments");
 
-    return std::make_unique<CallExpr>(name, std::move(arguments));
+    return std::make_unique<CallExpr>(name, std::move(arguments), currTok.loc);
 }
 
 std::unique_ptr<ReturnExpr> Parser::ParseReturnExpr()
 {
     assert(currTok == Token::Kind::RETURN);
     ReadNextToken();
-    return std::make_unique<ReturnExpr>(ParseExpr());
+    return std::make_unique<ReturnExpr>(ParseExpr(), currTok.loc);
 }
 
 std::unique_ptr<Expr> Parser::ParsePrimary()
@@ -196,12 +196,12 @@ std::unique_ptr<Expr> Parser::ParsePrimary()
             ReadNextToken();
             return ParseFunctionCall(id);
         } else {
-            return std::make_unique<IdenExpr>(std::move(id));
+            return std::make_unique<IdenExpr>(std::move(id), currTok.loc);
         }
     } else if(currTok == Token::Kind::INT_LITERAL) {
-        result = std::make_unique<LiteralExpr>(lexer.GetIntVal());
+        result = std::make_unique<LiteralExpr>(lexer.GetIntVal(), currTok.loc);
     } else if(currTok == Token::Kind::FLOAT_LITERAL) {
-        result = std::make_unique<LiteralExpr>(lexer.GetDoubleVal());
+        result = std::make_unique<LiteralExpr>(lexer.GetDoubleVal(), currTok.loc);
     }
     ReadNextToken();
     return result;
@@ -263,7 +263,7 @@ std::unique_ptr<VarDecl> Parser::ParseVarDecl()
         value = ParseExpr(); 
     }
     
-    return std::make_unique<VarDecl>(std::move(name), type, is_mutable, std::move(value));
+    return std::make_unique<VarDecl>(std::move(name), type, is_mutable, std::move(value), currTok.loc);
 }
 
 std::unique_ptr<CompoundExpr> Parser::ParseCompoundExpr()
@@ -275,5 +275,5 @@ std::unique_ptr<CompoundExpr> Parser::ParseCompoundExpr()
         exprs.emplace_back(ParseExpr());
     }
     CheckCurrentAndGetNext(Token::Kind::RCURLYB, "Expected closing curly bracket at the end of compound expr");
-    return std::make_unique<CompoundExpr>(std::move(exprs));
+    return std::make_unique<CompoundExpr>(std::move(exprs), currTok.loc);
 }

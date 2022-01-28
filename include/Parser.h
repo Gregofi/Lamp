@@ -4,6 +4,8 @@
 #include <cassert>
 #include <utility>
 #include <memory>
+#include <unordered_map>
+
 #include "include/Nodes/Type.h"
 #include "include/ParserError.h"
 #include "include/Nodes/Expr/CallExpr.h"
@@ -97,8 +99,8 @@ protected:
 
     Token currTok;
     Lexer lexer;
-
-    std::map<std::string, Function> functions;
+    bool hasMain = false;
+    std::vector<Function> functions;
 };
 
 #endif //LAMP_PARSER_H

@@ -14,6 +14,7 @@
 #include "llvm/IR/Verifier.h"
 #include "llvm/ADT/StringMap.h"
 
+#include "include/Token.h"
 #include "include/Visitor.h"
 #include "include/Utility.h"
 
@@ -52,12 +53,19 @@ public:
     void Visit(const VarDecl &expr) override;
     void Visit(const IfExpr &expr) override;
 private:
+    void ErrorReport(const CodegenError &err)
+    {
+        std::cerr << fmt::format("{}:{} \u001b[31merror: \u001b[0m {}\n", err.loc.row, err.loc.column, err.message);
+    }
+
     llvm::Value* OperatorsInt(llvm::Value* lhs, llvm::Value *rhs, Operator op);
     llvm::Function* GeneratePrototype(const Function &function);
-    /* This represents return value, virtual functions can't be templated */
+    /* This represents Visit functions return value */
     llvm::Value *ret_value;
     llvm::LLVMContext context;
     llvm::IRBuilder<> builder;
     llvm::Module module;
     llvm::StringMap<llvm::Value *> named_values;
+
+    llvm::raw_ostream &output;
 };

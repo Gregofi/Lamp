@@ -135,6 +135,6 @@ TEST(FUNCTION, FuncCall)
                            "def main() : Int = foo(x, x)\n");
     Parser parser(iss); 
     auto program = parser.ParseProgram();
-    const auto& func = dynamic_cast<const CallExpr&>(*program.functions.at("main").GetBody());
+    const auto& func = dynamic_cast<const CallExpr&>(*program.functions[1].GetBody());
     EXPECT_EQ(func.callee, "foo");
 }

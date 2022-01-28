@@ -8,7 +8,7 @@
 class ReturnExpr : public Expr
 {
 public:
-    ReturnExpr(std::unique_ptr<Expr> expr) : expr(std::move(expr)) {}
+    ReturnExpr(std::unique_ptr<Expr> expr, SourceLocation loc) : Expr(loc), expr(std::move(expr)) {}
     const Expr& GetExpr() const { return *expr; }
     void Accept(Visitor &v) const override { v.Visit(*this); }
 protected:

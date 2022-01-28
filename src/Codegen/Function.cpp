@@ -50,8 +50,7 @@ void Codegen::Visit(const Function &function)
         gen_f = GeneratePrototype(function);
         
     if(!gen_f->empty()) {
-        std::cerr << "Function cannot be redefined!";
-        VIS_RETURN(nullptr);
+        throw CodegenError(fmt::format("Function '{}' cannot be redefined.", function.GetName()), 0, 0);
     }
 
     /* This is forward decl */
