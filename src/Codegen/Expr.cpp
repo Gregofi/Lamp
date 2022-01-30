@@ -191,13 +191,20 @@ void Codegen::Visit(const IdenExpr &expr)
 
 void Codegen::Visit(const ReturnExpr &expr)
 {
-    std::cerr << "ReturnExpr not implemented" << std::endl;
-    VIS_RETURN(nullptr);
+    llvm::Type *fn_ret = builder.GetInsertBlock()->getParent()->getFunctionType();
+    if(fn_ret->isVoidTy())
+        builder.CreateRetVoid();
+    else 
+        builder.CreateRet(VIS_ACCEPT(&expr.GetExpr()));
+    /* Return is an expression that returns 1, it shoudn't matter
+       since the function ends after return */
+    VIS_RETURN(llvm::ConstantInt::get(context, APInt(sizeof(int) * 8, 1, true)););
 }
 
 void Codegen::Visit(const CompoundExpr &expr)
 {
-    llvm::Value *val;
+    /* TODO : Empty statements currently returns 0 at default */
+    llvm::Value *val = llvm::ConstantInt::get(context, APInt(sizeof(int) * 8, 0, true));
     for(const auto &exp : expr.GetExpressions()) {
         val = VIS_ACCEPT(exp);
     }
