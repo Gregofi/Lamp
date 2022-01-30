@@ -197,8 +197,11 @@ void Codegen::Visit(const ReturnExpr &expr)
 
 void Codegen::Visit(const CompoundExpr &expr)
 {
-    std::cerr << "CompoundExpr not implemented" << std::endl;
-    VIS_RETURN(nullptr);
+    llvm::Value *val;
+    for(const auto &exp : expr.GetExpressions()) {
+        val = VIS_ACCEPT(exp);
+    }
+    VIS_RETURN(val);
 }
 
 void Codegen::Visit(const VarDecl &expr)
