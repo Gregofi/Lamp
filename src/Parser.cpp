@@ -168,7 +168,7 @@ std::unique_ptr<CallExpr> Parser::ParseFunctionCall(const std::string &name)
 {
     std::vector<std::unique_ptr<Expr> > arguments;
 
-    while(true) {
+    while(currTok != Token::Kind::RBRACKET) {
         arguments.emplace_back(ParseExpr());
         if(currTok != Token::Kind::COMMA)
             break;

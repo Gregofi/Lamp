@@ -138,3 +138,24 @@ TEST(FUNCTION, FuncCall)
     const auto& func = dynamic_cast<const CallExpr&>(*program.functions[1].GetBody());
     EXPECT_EQ(func.callee, "foo");
 }
+
+TEST(FUNCTION, InnerFunctionCallVal)
+{
+    std::istringstream iss("def foo(x : Int) : Int = 2 * x\n"
+                           "def main() : Int = foo(foo(2))\n");
+    Parser parser(iss);
+    auto program = parser.ParseProgram();
+    const auto &func = dynamic_cast<const CallExpr&>(*program.functions[1].GetBody());
+    EXPECT_EQ(func.callee, "foo");
+}
+
+TEST(FUNCTION, InnerFunctionCallVoid)
+{
+    std::istringstream iss("def foo(x : Int) : Int = 2 * x\n"
+                           "def bar() : Int = 3\n"
+                           "def main() : Int = foo(bar())\n");
+    Parser parser(iss);
+    auto program = parser.ParseProgram();
+    const auto &func = dynamic_cast<const CallExpr&>(*program.functions[2].GetBody());
+    EXPECT_EQ(func.callee, "foo");
+}

@@ -1,0 +1,13 @@
+
+
+def compound() : Int = {
+    1
+    2
+    3
+}
+
+def main() : Int = {
+    writeln(1)
+    writeln(2)
+    writeln(compound())
+}

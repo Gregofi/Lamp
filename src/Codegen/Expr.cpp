@@ -198,7 +198,7 @@ void Codegen::Visit(const ReturnExpr &expr)
         builder.CreateRet(VIS_ACCEPT(&expr.GetExpr()));
     /* Return is an expression that returns 1, it shoudn't matter
        since the function ends after return */
-    VIS_RETURN(llvm::ConstantInt::get(context, APInt(sizeof(int) * 8, 1, true)););
+    VIS_RETURN(llvm::ConstantInt::get(context, APInt(sizeof(int) * 8, 1, true)));
 }
 
 void Codegen::Visit(const CompoundExpr &expr)
